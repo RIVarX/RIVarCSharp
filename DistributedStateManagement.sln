@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DosageDomainModel", "DosageDomainModel\DosageDomainModel.csproj", "{84E9C32A-CF29-4F15-B6E7-A9136506A83E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example_DosageDomainModel", "DosageDomainModel\Example_DosageDomainModel.csproj", "{84E9C32A-CF29-4F15-B6E7-A9136506A83E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp1", "WindowsFormsApp1\WindowsFormsApp1.csproj", "{C34C6E4D-3FDD-4D0F-B7EC-05ECB8DA6601}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example_UI", "WindowsFormsApp1\Example_UI.csproj", "{C34C6E4D-3FDD-4D0F-B7EC-05ECB8DA6601}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactiveVariablesExtension", "ReactiveVariablesExtension\ReactiveVariablesExtension.csproj", "{92B8945D-E615-48AF-8D66-628210C29D41}"
 EndProject

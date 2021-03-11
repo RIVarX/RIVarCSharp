@@ -128,9 +128,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DosageDomainModel\DosageDomainModel.csproj">
+    <ProjectReference Include="..\DosageDomainModel\Example_DosageDomainModel.csproj">
       <Project>{84e9c32a-cf29-4f15-b6e7-a9136506a83e}</Project>
-      <Name>DosageDomainModel</Name>
+      <Name>Example_DosageDomainModel</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
