@@ -4,13 +4,13 @@ Functional Reactive Decentralized State Management for User Interfaces
 Learn by example:
 
 ```C#
-Variable Concentration, Amount, Volume
+Variable x, y, z
 
-Concentration=Amount/Volume
+z = x / y
 
 ```
 
-This assigment means binding, whenever Amount or Volume is changed, Concentration is updated. 
+This assignment means *binding*, whenever *x* or *y* is changed, *z* is updated. 
 
 Such statements can bind variables in either directions, on the same object, or across two different objects; as a result the variables and bindings might form *any* network.
 
