@@ -1,12 +1,26 @@
 # Pury
 Functional Reactive Decentralized State Management for User Interfaces
 
-The framework adopts Functional Reactive Programming: variables' assignments are relations therebetween continuously, similar to the behavior of a formula in Excel Spreadsheets.
-This is the first solution that coordinates the behavior with no centralized manager, thus allowing to design independent components.
+Learn by example:
 
-This aims to be an alternative to Redux, which forces you to manage traditional imperative paradigms.
+```C#
+Variable Concentration, Amount, Volume
 
-This is better also that traditional Binding frameworks, because this framework does not have redundant evaluations.
+Concentration=Amount/Volume
+
+```
+
+This assigment means binding, whenever Amount or Volume is changed, Concentration is updated. 
+
+Such statements can bind variables in either directions, on the same object, or across two different objects; as a result the variables and bindings might form *any* network.
+
+Unlike other frameworks, the updates are predictable, with no redundant updates and happens therebetween the variables.
+
+The set of variables aims to be a **consistent UI application state**: the variables contains the values that reflect the recent inputs and bindings which flow them.
+
+
+
+
 
 
 
