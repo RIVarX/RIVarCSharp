@@ -12,9 +12,9 @@ z = x / y
 
 This assignment means *binding*, whenever *x* or *y* is changed, *z* is updated. 
 
-Such statements can bind variables in either directions, on the same object, or across two different objects; as a result the variables and bindings might form *any* network.
+Such assignment can bind variables in either directions, on the same object, or across two different objects; as a result the variables and bindings might form *any* network.
 
-Unlike other frameworks, the updates are predictable, with no redundant updates and happens therebetween the variables.
+Unlike other frameworks, the updates are predictable, with no redundant updates and happens between the variables.
 
 The set of variables aims to be a **consistent UI application state**: the variables contains the values that reflect the recent inputs and bindings which flow them.
 
