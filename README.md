@@ -1,10 +1,7 @@
-# Pury
-Reactive Instance Variables
+# Reactive Instance Variables
+Declarative, Efficient, Scalable
 
-
-### Reactive, Declarative, Efficient, Scalable
-
-# Declaring
+### Declaring
 
 ```C#
 Variable x, y, z
@@ -25,7 +22,7 @@ y.OnNext(3) // z=3.33
 
 ```
 
-# Efficient
+### Efficient
 
 ```C#
 Variable x, y, z
@@ -47,7 +44,7 @@ y.OnNext(3) // z=3.33 , x has not changed
 
 ```
 
-# Scalable
+### Scalable
 TBD
 
 
