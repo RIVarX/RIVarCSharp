@@ -1,7 +1,7 @@
 # RIV
 Reactive Instance Variables
 
-We lift the variable as "storage type" to *reactive* variables, 
+We lift the variables as "storage type" to *reactive* variables, 
 Changes to variables are automatically propagated to other variables similar to the behavior in Microsoft Excel.
 
 You can connect variables on the same object, or across different objects.
