@@ -30,7 +30,7 @@ the variables will contain the values that reflect the recent inputs.
         {
             //Declaring the Functional Relations, 
             //e.g. Dose is set by Amount/Duration, 
-            //so that when Amount or Duration Dose will be updated
+            
                         
             Dose.Set(bag.Amount.Div(Duration)); 
             Rate.Set(bag.Volume.Div(Duration));
