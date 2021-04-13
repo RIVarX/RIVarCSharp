@@ -1,7 +1,14 @@
 # RIV
 Reactive Instance Variables
 
-You can connect variables on the same object, or across different objects. The plurality of variables aims to be a **consistent UI application state**: the variables contains the values that reflect the recent inputs.
+We lift the variable as "storage type" to *reactive* variables, 
+Changes to variables are automatically propagated to other variables similar to the behavior in Microsoft Excel.
+
+You can connect variables on the same object, or across different objects.
+
+Cases when objects define *conflicts*, that are several assigments to a single variable, 
+the variables will contain the values that reflect the recent inputs.
+
 
 # Example
 
@@ -21,7 +28,8 @@ You can connect variables on the same object, or across different objects. The p
 
         public InfusedBag(IBag bag)
         {
-            //Declaring the Functional Relations, e.g. Dose is set by Amount/Duration, so that when Amount or Duration Dose will be updated
+            //Declaring the Functional Relations, 
+            e.g. Dose is set by Amount/Duration, so that when Amount or Duration Dose will be updated
                         
             Dose.Set(bag.Amount.Div(Duration)); 
             Rate.Set(bag.Volume.Div(Duration));
