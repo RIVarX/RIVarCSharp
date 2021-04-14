@@ -1,5 +1,5 @@
 # RIvar
-Reactive Instance variables
+**R**eactive **I**nstance **var**iables
 
 
 We lift the variables as "storage type" to *reactive* variables, 
