@@ -1,5 +1,6 @@
-# RIV
-Reactive Instance Variables
+# RIvar
+Reactive Instance variables
+
 
 We lift the variables as "storage type" to *reactive* variables, 
 Changes to variables are automatically propagated to other variables similar to the behavior in Microsoft Excel.
