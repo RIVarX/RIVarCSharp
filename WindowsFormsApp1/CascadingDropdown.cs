@@ -38,6 +38,10 @@ namespace WindowsFormsApp1
             list2.Set(value1.SelectLatestSignal(o => compatibleList.Where(entry => string.IsNullOrEmpty(o) || entry.nodeJSVersion == o).Select(_ => _.angularVersion).Union(new[] { "" }).ToArray()));
             list1.Set(value2.SelectLatestSignal(o => compatibleList.Where(entry => string.IsNullOrEmpty(o) || entry.angularVersion == o).Select(_ => _.nodeJSVersion).Union(new[] { "" }).ToArray()));
 
+            ////if one items in the list - select it
+            value1.Set(list1.SelectLatestSignal(o => o).Where(o => o.Value.Count(_ => !string.IsNullOrEmpty(_)) == 1).SelectLatestSignal(o => o.Single(_ => !string.IsNullOrEmpty(_))));
+            value2.Set(list2.SelectLatestSignal(o => o).Where(o => o.Value.Count(_ => !string.IsNullOrEmpty(_)) == 1).SelectLatestSignal(o => o.Single(_ => !string.IsNullOrEmpty(_))));
+
             value1.OnNext(new SignalValue<string>(""));
             value2.OnNext(new SignalValue<string>(""));
         }
@@ -46,6 +50,9 @@ namespace WindowsFormsApp1
         {
             list1.Subscribe(currentList => updateComboboxList(currentList, comboBox1));
             list2.Subscribe(currentList => updateComboboxList(currentList, comboBox2));
+
+            value1.Subscribe(o => { if (comboBox1.SelectedItem?.ToString() != o.Value) comboBox1.SelectedItem = o.Value; });
+            value2.Subscribe(o => { if (comboBox2.SelectedItem?.ToString() != o.Value) comboBox2.SelectedItem = o.Value; });
 
             comboBox1.SelectedIndexChanged += ComboBox1_SelectedIndexChanged;
             comboBox2.SelectedIndexChanged += ComboBox2_SelectedIndexChanged;

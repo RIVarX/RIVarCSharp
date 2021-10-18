@@ -33,7 +33,7 @@ namespace ReactiveVariablesExtension
             .Publish().RefCount();
         }
 
-        public static IObservable<SignalValue<TResult>> CombineLatestSignal<T, TResult>(this IObservable<SignalValue<T>> observable1, IObservable<SignalValue<T>> observable2, Func<T, T, TResult> resultSelector)
+        public static IObservable<SignalValue<TResult>> CombineLatestSignal<T1,T2, TResult>(this IObservable<SignalValue<T1>> observable1, IObservable<SignalValue<T2>> observable2, Func<T1, T2, TResult> resultSelector)
         {
             return Observable.CombineLatest(observable1.Monotonic(), observable2.Monotonic(), (x, y) => ProduceResult(resultSelector, x, y))
                 .Publish().RefCount();
@@ -41,24 +41,24 @@ namespace ReactiveVariablesExtension
         public static IObservable<SignalValue<TResult>> SelectLatestSignal<T, TResult>(this IObservable<SignalValue<T>> observable, Func<T, TResult> resultSelector)
         {
             return observable.Monotonic().Select(o =>
-            o == null ? default(SignalValue<TResult>) : new SignalValue<TResult>(resultSelector(o.Value))).Publish().RefCount();
+            o == null ? default(SignalValue<TResult>) : new SignalValue<TResult>(resultSelector(o.Value),o.PrioritySet)).Publish().RefCount();
         }
 
-        private static SignalValue<TResult> ProduceResult<T, TResult>(Func<T, T, TResult> resultSelector, SignalValue<T> x, SignalValue<T> y)
+        private static SignalValue<TResult> ProduceResult<T1,T2, TResult>(Func<T1, T2, TResult> resultSelector, SignalValue<T1> x, SignalValue<T2> y)
         {
-            if (x != default(SignalValue<T>) && y != default(SignalValue<T>))
+            if (x != default(SignalValue<T1>) && y != default(SignalValue<T2>))
             {
-                if (x.Value != null && !x.Value.Equals(default(T)) && y.Value != null && !y.Value.Equals(default(T)))
+                if (x.Value != null && !x.Value.Equals(default(T1)) && y.Value != null && !y.Value.Equals(default(T2)))
                     return new SignalValue<TResult>(resultSelector(x.Value, y.Value), x.PrioritySet.Union(y.PrioritySet).ToArray());
                 return new SignalValue<TResult>(default(TResult), x.PrioritySet.Union(y.PrioritySet).ToArray());
             }
 
-            if (x != default(SignalValue<T>))
+            if (x != default(SignalValue<T1>))
             {
                 return new SignalValue<TResult>(default(TResult), x.PrioritySet.Union(new int[] { 0 }).ToArray());
             }
 
-            if (y != default(SignalValue<T>))
+            if (y != default(SignalValue<T2>))
             {
                 return new SignalValue<TResult>(default(TResult), y.PrioritySet.Union(new int[] { 0 }).ToArray());
             }
