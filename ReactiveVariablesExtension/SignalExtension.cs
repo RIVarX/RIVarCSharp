@@ -38,6 +38,11 @@ namespace ReactiveVariablesExtension
             return Observable.CombineLatest(observable1.Monotonic(), observable2.Monotonic(), (x, y) => ProduceResult(resultSelector, x, y))
                 .Publish().RefCount();
         }
+        public static IObservable<SignalValue<TResult>> SelectLatestSignal<T, TResult>(this IObservable<SignalValue<T>> observable, Func<T, TResult> resultSelector)
+        {
+            return observable.Monotonic().Select(o =>
+            o == null ? default(SignalValue<TResult>) : new SignalValue<TResult>(resultSelector(o.Value))).Publish().RefCount();
+        }
 
         private static SignalValue<TResult> ProduceResult<T, TResult>(Func<T, T, TResult> resultSelector, SignalValue<T> x, SignalValue<T> y)
         {
