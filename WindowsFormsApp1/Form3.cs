@@ -11,7 +11,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ReactiveVariablesExtension;
-using ReactiveVariablesExtension.FifoInputs;
 
 namespace WindowsFormsApp1
 {
@@ -27,7 +26,6 @@ namespace WindowsFormsApp1
         public Form3()
         {
             InitializeComponent();
-        
 
             ConnectCells();
 

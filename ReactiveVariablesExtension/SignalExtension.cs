@@ -7,7 +7,18 @@ namespace ReactiveVariablesExtension
 {
     public static class SignalExtension
     {
-        private static IObservable<SignalValue<T>> SelectLatest<T>(this IObservable<SignalValue<T>> source, params IObservable<SignalValue<T>>[] moreSources)
+        public static void Set<T>(this ISubject<SignalValue<T>> target, IObservable<SignalValue<T>> source)
+        {
+            var targetWithInitialValue = target.StartWith(default(SignalValue<T>));
+
+            var streamOfChanges = Observable.CombineLatest(source, targetWithInitialValue, (valueInSource, valueInTarget) => new Tuple<SignalValue<T>, SignalValue<T>>(valueInSource, valueInTarget));
+
+            var streamOfChangesInSource = streamOfChanges.Where(change => change.Item1.CompareTo(change.Item2) > 0).Select(change => change.Item1);
+
+            streamOfChangesInSource.Subscribe(target.OnNext);// update the target for changes in the source
+        }
+
+        public static IObservable<SignalValue<T>> SelectLatest<T>(this IObservable<SignalValue<T>> source, params IObservable<SignalValue<T>>[] moreSources)
         {
             var allSources = moreSources.Union(new[] { source }).ToArray();
 

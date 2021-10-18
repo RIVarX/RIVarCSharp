@@ -34,10 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ReactiveVariablesExtension, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\DosageDomainModel\ReactiveVariablesExtension.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -131,6 +127,10 @@
     <ProjectReference Include="..\DosageDomainModel\Example_DosageDomainModel.csproj">
       <Project>{84e9c32a-cf29-4f15-b6e7-a9136506a83e}</Project>
       <Name>Example_DosageDomainModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReactiveVariablesExtension\ReactiveVariablesExtension.csproj">
+      <Project>{92b8945d-e615-48af-8d66-628210c29d41}</Project>
+      <Name>ReactiveVariablesExtension</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

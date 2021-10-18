@@ -6,7 +6,6 @@ using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
 using ReactiveVariablesExtension;
-using ReactiveVariablesExtension.FifoInputs;
 
 namespace DosageDomainModel
 {

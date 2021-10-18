@@ -11,7 +11,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ReactiveVariablesExtension;
-using ReactiveVariablesExtension.FifoInputs;
 
 namespace WindowsFormsApp1
 {

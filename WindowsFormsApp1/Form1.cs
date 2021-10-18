@@ -17,6 +17,7 @@ namespace WindowsFormsApp1
         string _id = Guid.NewGuid().ToString();
         public Form1()
         {
+            
             InitializeComponent();
 
             var a = this.Controls.OfType<NumericUpDown>().Union(panel1.Controls.OfType<NumericUpDown>()).ToList();
