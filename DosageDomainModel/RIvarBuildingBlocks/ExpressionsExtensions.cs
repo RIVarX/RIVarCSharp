@@ -1,9 +1,9 @@
 ﻿using System;
 using RIvarX;
 
-namespace DosageDomainModel
+namespace SignalExample_InfusionTherapy
 {
-   public static class DosageExtension
+   public static class ExpressionsExtensions
     {
         public static IObservable<Signal<IOperand>> Mul(this IObservable<Signal<IOperand>> operand1, IObservable<Signal<IOperand>> operand2)
         {

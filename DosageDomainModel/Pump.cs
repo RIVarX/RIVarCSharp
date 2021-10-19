@@ -4,16 +4,16 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using RIvarX;
 
-namespace DosageDomainModel
+namespace SignalExample_InfusionTherapy
 {
     
-    public class InfusedBag
+    public class Pump
     {
         public ISubject<Signal<IOperand>> Rate = new Subject<Signal<IOperand>>();
         public ISubject<Signal<IOperand>> Dose = new Subject<Signal<IOperand>>();
         public ISubject<Signal<IOperand>> Duration = new Subject<Signal<IOperand>>();
 
-        public InfusedBag(IBag bag)
+        public Pump(IBag bag)
         {
            
 

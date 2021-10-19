@@ -1,4 +1,4 @@
-﻿using DosageDomainModel;
+﻿using SignalExample_InfusionTherapy;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -37,7 +37,7 @@ namespace WindowsFormsApp1
 
 
 
-            //var wikiExample = new DosageDomainModel.another.GlitchExample();
+            //var wikiExample = new SignalExample_InfusionTherapy.another.GlitchExample();
             //wikiExample.g.Subscribe(x => { });
             //wikiExample.seconds.OnNext(new Signal<int>(1));
             //wikiExample.seconds.OnNext(new Signal<int>(2));
@@ -75,7 +75,7 @@ namespace WindowsFormsApp1
             var durationInputs = GetObservable(form1, form1.numericUpDowndure);
 
             var bag = new Bag();
-            var infusedBag = new InfusedBag(bag);
+            var infusedBag = new Pump(bag);
 
             medicationInputs.Subscribe(x => bag.Amount.OnNext(x));
             volumeInputs.Subscribe(x => bag.Volume.OnNext(x));

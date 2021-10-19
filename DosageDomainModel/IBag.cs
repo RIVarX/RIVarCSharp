@@ -1,7 +1,7 @@
 ﻿using System.Reactive.Subjects;
 using RIvarX;
 
-namespace DosageDomainModel
+namespace SignalExample_InfusionTherapy
 {
     public  interface IBag
     {

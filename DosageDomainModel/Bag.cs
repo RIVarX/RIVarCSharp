@@ -1,9 +1,8 @@
 ﻿using System.Reactive.Subjects;
 using RIvarX;
 
-namespace DosageDomainModel
+namespace SignalExample_InfusionTherapy
 {
-
     public class Bag: IBag
     {
         public ISubject<Signal<IOperand>> Amount { get; set; } = new Subject<Signal<IOperand>>();
