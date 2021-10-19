@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ReactiveVariablesExtension;
+using RIvarX;
 
 
 
@@ -22,23 +22,25 @@ namespace WindowsFormsApp1
         [STAThread]
         static void Main()
         {
+            Application.Run(new CascadingDropdown());
+            return;
 
             //CycleExample cycle = new CycleExample();
             //cycle.left.Subscribe(x => { });
             //cycle.right.Subscribe(x => { });
             //cycle.width.Subscribe(x => { });
 
-            //cycle.right.OnNext(new SignalValue<double>(50));
-            //cycle.left.OnNext(new SignalValue<double>(20));
+            //cycle.right.OnNext(new Signal<double>(50));
+            //cycle.left.OnNext(new Signal<double>(20));
 
-            //cycle.width.OnNext(new SignalValue<double>(100));
+            //cycle.width.OnNext(new Signal<double>(100));
 
 
 
             //var wikiExample = new DosageDomainModel.another.GlitchExample();
             //wikiExample.g.Subscribe(x => { });
-            //wikiExample.seconds.OnNext(new SignalValue<int>(1));
-            //wikiExample.seconds.OnNext(new SignalValue<int>(2));
+            //wikiExample.seconds.OnNext(new Signal<int>(1));
+            //wikiExample.seconds.OnNext(new Signal<int>(2));
 
 
 
@@ -91,7 +93,7 @@ namespace WindowsFormsApp1
         }
 
     
-        private static decimal GetValue(SignalValue<IOperand> sig)
+        private static decimal GetValue(Signal<IOperand> sig)
         {
             if ((sig?.Value as QuantableValue)?.Value == null)
                 return 0;
@@ -99,7 +101,7 @@ namespace WindowsFormsApp1
             return Convert.ToDecimal((sig.Value as QuantableValue).Value);
         }
 
-        private static void SetValue(Form1 form1, NumericUpDown control, SignalValue<IOperand> sig)
+        private static void SetValue(Form1 form1, NumericUpDown control, Signal<IOperand> sig)
         {
             lock (form1)
             {
@@ -131,10 +133,10 @@ namespace WindowsFormsApp1
 
         }
 
-        static IObservable<SignalValue<IOperand>>  GetObservable(Form form1, NumericUpDown control)
+        static IObservable<Signal<IOperand>>  GetObservable(Form form1, NumericUpDown control)
         {
             return Observable.FromEventPattern<double>(form1, "ControlValueChanged").Where(o => o.Sender == control).Select(o => (o.Sender as NumericUpDown).Value.ToString())//.Scan((x,y)=>y)//.Select(o=> Convert.ToDouble(o))
-                .Select(o => new QuantableValue(Convert.ToDouble(o))).Select(o => new SignalValue<IOperand>(o)).DistinctUntilChanged()
+                .Select(o => new QuantableValue(Convert.ToDouble(o))).Select(o => new Signal<IOperand>(o)).DistinctUntilChanged()
                 .Select(o => o).Publish().RefCount().Select(o => o);
         }
     }

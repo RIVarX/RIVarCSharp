@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Linq;
 
-namespace ReactiveVariablesExtension
+namespace RIvarX
 {
-    public class SignalValue<T> : IComparable<SignalValue<T>>, IEquatable<SignalValue<T>>
+    public class Signal<T> : IComparable<Signal<T>>, IEquatable<Signal<T>>
     {
         private static int _priorityIterator = 0;
         private readonly int[] _prioritySet;
 
         public T Value { get; }
         public int[] PrioritySet => _prioritySet??new int[] { 0 };
-        public SignalValue(T value)
+        public Signal(T value)
         {
             _prioritySet = new int[] { ++_priorityIterator };
             Value = value;
         }
 
-        public SignalValue(T value, int[] prioritySet)
+        public Signal(T value, int[] prioritySet)
         {
             _prioritySet = prioritySet;
             Value = value;
@@ -27,7 +27,7 @@ namespace ReactiveVariablesExtension
             return $"{Value} ({string.Join(",", PrioritySet)})";
         }
 
-        public int CompareTo(SignalValue<T> other)
+        public int CompareTo(Signal<T> other)
         {
             if (IsPrioritized(other, this))
                 return -1;
@@ -36,7 +36,7 @@ namespace ReactiveVariablesExtension
             return 0;
         }
 
-        private bool IsPrioritized(SignalValue<T> signal, SignalValue<T> thanSignal)
+        private bool IsPrioritized(Signal<T> signal, Signal<T> thanSignal)
         {
             var signalSet = signal?.PrioritySet ?? new int[] { 0 };
             var otherSignalSet = thanSignal?.PrioritySet ?? new int[] { 0 };
@@ -62,7 +62,7 @@ namespace ReactiveVariablesExtension
             return false;
         }
 
-        public bool Equals(SignalValue<T> other)
+        public bool Equals(Signal<T> other)
         {
 
             if (this.Value != null && other.Value != null && !this.Value.Equals(other.Value))

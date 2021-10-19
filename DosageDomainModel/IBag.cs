@@ -1,11 +1,11 @@
 ﻿using System.Reactive.Subjects;
-using ReactiveVariablesExtension;
+using RIvarX;
 
 namespace DosageDomainModel
 {
     public  interface IBag
     {
-        ISubject<SignalValue<IOperand>> Amount { get; }
-        ISubject<SignalValue<IOperand>> Volume { get; }
+        ISubject<Signal<IOperand>> Amount { get; }
+        ISubject<Signal<IOperand>> Volume { get; }
     }
 }

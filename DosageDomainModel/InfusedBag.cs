@@ -2,16 +2,16 @@
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using ReactiveVariablesExtension;
+using RIvarX;
 
 namespace DosageDomainModel
 {
     
     public class InfusedBag
     {
-        public ISubject<SignalValue<IOperand>> Rate = new Subject<SignalValue<IOperand>>();
-        public ISubject<SignalValue<IOperand>> Dose = new Subject<SignalValue<IOperand>>();
-        public ISubject<SignalValue<IOperand>> Duration = new Subject<SignalValue<IOperand>>();
+        public ISubject<Signal<IOperand>> Rate = new Subject<Signal<IOperand>>();
+        public ISubject<Signal<IOperand>> Dose = new Subject<Signal<IOperand>>();
+        public ISubject<Signal<IOperand>> Duration = new Subject<Signal<IOperand>>();
 
         public InfusedBag(IBag bag)
         {
@@ -25,9 +25,6 @@ namespace DosageDomainModel
 
             bag.Amount.Set(Duration.Mul(Dose));
             bag.Volume.Set(Duration.Mul(Rate));
-
-           // bag.Amount.OnNext(7);
-
 
         }
  

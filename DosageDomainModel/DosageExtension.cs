@@ -1,20 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ReactiveVariablesExtension;
+using RIvarX;
 
 namespace DosageDomainModel
 {
    public static class DosageExtension
     {
-        public static IObservable<SignalValue<IOperand>> Mul(this IObservable<SignalValue<IOperand>> operand1, IObservable<SignalValue<IOperand>> operand2)
+        public static IObservable<Signal<IOperand>> Mul(this IObservable<Signal<IOperand>> operand1, IObservable<Signal<IOperand>> operand2)
         {
             return  operand1.CombineLatestSignal(operand2, (x, y) => x.Mul(y));
         }
-        public static IObservable<SignalValue<IOperand>> Div(this IObservable<SignalValue<IOperand>> operand1, IObservable<SignalValue<IOperand>> operand2)
+        public static IObservable<Signal<IOperand>> Div(this IObservable<Signal<IOperand>> operand1, IObservable<Signal<IOperand>> operand2)
         {
             return  operand1.CombineLatestSignal(operand2, (x, y) => x.Div(y));
         }

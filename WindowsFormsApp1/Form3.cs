@@ -10,18 +10,18 @@ using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ReactiveVariablesExtension;
+using RIvarX;
 
 namespace WindowsFormsApp1
 {
     public partial class Form3 : Form
     {
-        private Subject<SignalValue<IOperand>> amount = new Subject<SignalValue<IOperand>>();
-        private Subject<SignalValue<IOperand>> volume = new Subject<SignalValue<IOperand>>();
-        private Subject<SignalValue<IOperand>> concentration = new Subject<SignalValue<IOperand>>();
-        public Subject<SignalValue<IOperand>> Rate = new Subject<SignalValue<IOperand>>();
-        public Subject<SignalValue<IOperand>> Dose = new Subject<SignalValue<IOperand>>();
-        public Subject<SignalValue<IOperand>> Duration = new Subject<SignalValue<IOperand>>();
+        private Subject<Signal<IOperand>> amount = new Subject<Signal<IOperand>>();
+        private Subject<Signal<IOperand>> volume = new Subject<Signal<IOperand>>();
+        private Subject<Signal<IOperand>> concentration = new Subject<Signal<IOperand>>();
+        public Subject<Signal<IOperand>> Rate = new Subject<Signal<IOperand>>();
+        public Subject<Signal<IOperand>> Dose = new Subject<Signal<IOperand>>();
+        public Subject<Signal<IOperand>> Duration = new Subject<Signal<IOperand>>();
 
         public Form3()
         {
@@ -64,7 +64,7 @@ namespace WindowsFormsApp1
         NumericUpDown _lastValueChangedControl;
         string _id = Guid.NewGuid().ToString();
 
-        void Connect(Subject<SignalValue<IOperand>> subject, NumericUpDown control)
+        void Connect(Subject<Signal<IOperand>> subject, NumericUpDown control)
         {
             subject.Subscribe(x => SetValue(control, x));
             var observable = GetObservable(control);
@@ -75,7 +75,7 @@ namespace WindowsFormsApp1
             control.LostFocus += O_LostFocus;
         }
 
-        private void SetValue(NumericUpDown control, SignalValue<IOperand> sig)
+        private void SetValue(NumericUpDown control, Signal<IOperand> sig)
         {
             lock (this)
             {
@@ -133,10 +133,10 @@ namespace WindowsFormsApp1
             }
         }
 
-        IObservable<SignalValue<IOperand>> GetObservable(NumericUpDown control)
+        IObservable<Signal<IOperand>> GetObservable(NumericUpDown control)
         {
             return Observable.FromEventPattern<double>(this, "ControlValueChanged").Where(o => o.Sender == control).Select(o => (o.Sender as NumericUpDown).Value.ToString())//.Scan((x,y)=>y)//.Select(o=> Convert.ToDouble(o))
-                .Select(o => new QuantableValue(Convert.ToDouble(o))).Select(o => new SignalValue<IOperand>(o)).DistinctUntilChanged()
+                .Select(o => new QuantableValue(Convert.ToDouble(o))).Select(o => new Signal<IOperand>(o)).DistinctUntilChanged()
                 .Select(o => o).Publish().RefCount().Select(o => o);
         }
 

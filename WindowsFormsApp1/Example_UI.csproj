@@ -140,9 +140,9 @@
       <Project>{84e9c32a-cf29-4f15-b6e7-a9136506a83e}</Project>
       <Name>Example_DosageDomainModel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ReactiveVariablesExtension\ReactiveVariablesExtension.csproj">
+    <ProjectReference Include="..\RIvarX\RIvarX.csproj">
       <Project>{92b8945d-e615-48af-8d66-628210c29d41}</Project>
-      <Name>ReactiveVariablesExtension</Name>
+      <Name>RIvarX</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

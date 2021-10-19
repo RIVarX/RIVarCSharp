@@ -10,7 +10,7 @@ using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ReactiveVariablesExtension;
+using RIvarX;
 
 namespace WindowsFormsApp1
 {
@@ -18,9 +18,9 @@ namespace WindowsFormsApp1
     {
       
 
-        Subject<SignalValue<IOperand>> A1 = new Subject<SignalValue<IOperand>>();
-        Subject<SignalValue<IOperand>> B1 = new Subject<SignalValue<IOperand>>();
-        Subject<SignalValue<IOperand>> C1 = new Subject<SignalValue<IOperand>>();
+        Subject<Signal<IOperand>> A1 = new Subject<Signal<IOperand>>();
+        Subject<Signal<IOperand>> B1 = new Subject<Signal<IOperand>>();
+        Subject<Signal<IOperand>> C1 = new Subject<Signal<IOperand>>();
   
 
         public Form2()
@@ -41,7 +41,7 @@ namespace WindowsFormsApp1
         NumericUpDown _lastValueChangedControl;
         string _id = Guid.NewGuid().ToString();
 
-        void Connect(Subject<SignalValue<IOperand>> subject, NumericUpDown control)
+        void Connect(Subject<Signal<IOperand>> subject, NumericUpDown control)
         {
             subject.Subscribe(x => SetValue(control, x));
             var observable = GetObservable(control);
@@ -52,7 +52,7 @@ namespace WindowsFormsApp1
             control.LostFocus += O_LostFocus;
         }
 
-        private  void SetValue( NumericUpDown control, SignalValue<IOperand> sig)
+        private  void SetValue( NumericUpDown control, Signal<IOperand> sig)
         {
             lock (this)
             {
@@ -110,10 +110,10 @@ namespace WindowsFormsApp1
             }
         }
 
-         IObservable<SignalValue<IOperand>> GetObservable( NumericUpDown control)
+         IObservable<Signal<IOperand>> GetObservable( NumericUpDown control)
         {
             return Observable.FromEventPattern<double>(this, "ControlValueChanged").Where(o => o.Sender == control).Select(o => (o.Sender as NumericUpDown).Value.ToString())//.Scan((x,y)=>y)//.Select(o=> Convert.ToDouble(o))
-                .Select(o => new QuantableValue(Convert.ToDouble(o))).Select(o => new SignalValue<IOperand>(o)).DistinctUntilChanged()
+                .Select(o => new QuantableValue(Convert.ToDouble(o))).Select(o => new Signal<IOperand>(o)).DistinctUntilChanged()
                 .Select(o => o).Publish().RefCount().Select(o => o);
         }
 

@@ -10,16 +10,16 @@ using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ReactiveVariablesExtension;
+using RIvarX;
 
 namespace WindowsFormsApp1
 {
     public partial class CascadingDropdown : Form
     {
-        Subject<SignalValue<string[]>> list1 = new Subject<SignalValue<string[]>>();
-        Subject<SignalValue<string[]>> list2 = new Subject<SignalValue<string[]>>();
-        Subject<SignalValue<string>> value1 = new Subject<SignalValue<string>>();
-        Subject<SignalValue<string>> value2 = new Subject<SignalValue<string>>();
+        Subject<Signal<string[]>> list1 = new Subject<Signal<string[]>>();
+        Subject<Signal<string[]>> list2 = new Subject<Signal<string[]>>();
+        Subject<Signal<string>> value1 = new Subject<Signal<string>>();
+        Subject<Signal<string>> value2 = new Subject<Signal<string>>();
 
         public CascadingDropdown()
         {
@@ -42,8 +42,8 @@ namespace WindowsFormsApp1
             value1.Set(list1.SelectLatestSignal(o => o).Where(o => o.Value.Count(_ => !string.IsNullOrEmpty(_)) == 1).SelectLatestSignal(o => o.Single(_ => !string.IsNullOrEmpty(_))));
             value2.Set(list2.SelectLatestSignal(o => o).Where(o => o.Value.Count(_ => !string.IsNullOrEmpty(_)) == 1).SelectLatestSignal(o => o.Single(_ => !string.IsNullOrEmpty(_))));
 
-            value1.OnNext(new SignalValue<string>(""));
-            value2.OnNext(new SignalValue<string>(""));
+            value1.OnNext(new Signal<string>(""));
+            value2.OnNext(new Signal<string>(""));
         }
 
         private void Connect()
@@ -58,7 +58,7 @@ namespace WindowsFormsApp1
             comboBox2.SelectedIndexChanged += ComboBox2_SelectedIndexChanged;
         }
 
-        private static void updateComboboxList(SignalValue<string[]> currentList, ComboBox comboBox)
+        private static void updateComboboxList(Signal<string[]> currentList, ComboBox comboBox)
         {
             var itemsToRemove = comboBox.Items.OfType<string>().Where(item => !currentList.Value.Contains(item)).ToArray();
 
@@ -77,12 +77,12 @@ namespace WindowsFormsApp1
 
         private void ComboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            value2.OnNext(new SignalValue<string>((sender as ComboBox).SelectedItem.ToString()));
+            value2.OnNext(new Signal<string>((sender as ComboBox).SelectedItem.ToString()));
         }
 
         private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            value1.OnNext(new SignalValue<string>((sender as ComboBox).SelectedItem.ToString()));
+            value1.OnNext(new Signal<string>((sender as ComboBox).SelectedItem.ToString()));
         }
     }
 }
