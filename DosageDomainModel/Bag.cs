@@ -5,9 +5,9 @@ namespace SignalExample_InfusionTherapy
 {
     public class Bag: IBag
     {
-        public ISubject<Signal<IOperand>> Amount { get; set; } = new Subject<Signal<IOperand>>();
-        public ISubject<Signal<IOperand>> Volume { get; set; } = new Subject<Signal<IOperand>>();
-        public ISubject<Signal<IOperand>> Concentration { get; set; } = new Subject<Signal<IOperand>>();
+        public RIvar<IOperand> Amount { get; set; } = new RIvar<IOperand>();
+        public RIvar<IOperand> Volume { get; set; } = new RIvar<IOperand>();
+        public RIvar<IOperand> Concentration { get; set; } = new RIvar<IOperand>();
 
         public Bag()
         {

@@ -22,8 +22,7 @@ namespace WindowsFormsApp1
         [STAThread]
         static void Main()
         {
-            Application.Run(new CascadingDropdown());
-            return;
+         
 
             //CycleExample cycle = new CycleExample();
             //cycle.left.Subscribe(x => { });
@@ -47,24 +46,24 @@ namespace WindowsFormsApp1
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            var form1 = new Form1();
+            var form1 = new InfusionTherapy();
 
             Bind(form1);
 
-            var f = new Form2();
+            var f = new Excel();
            var a1 = GetObservable(f, f._A1);
             var b1 = GetObservable(f, f._B1);
             var c1 = GetObservable(f, f._C1);
 
            //  Application.Run(new Form2());//simple excel
-             Application.Run(new Form3());//infusion in excel
+             Application.Run(new InfusionTherapyExcel());//infusion in excel
 
           //   Application.Run(form1);//infusion modular
 
         }
 
        
-        static void Bind(Form1 form1)
+        static void Bind(InfusionTherapy form1)
         {
 
             var medicationInputs = GetObservable(form1, form1.numericUpDownMedication);
@@ -101,7 +100,7 @@ namespace WindowsFormsApp1
             return Convert.ToDecimal((sig.Value as QuantableValue).Value);
         }
 
-        private static void SetValue(Form1 form1, NumericUpDown control, Signal<IOperand> sig)
+        private static void SetValue(InfusionTherapy form1, NumericUpDown control, Signal<IOperand> sig)
         {
             lock (form1)
             {

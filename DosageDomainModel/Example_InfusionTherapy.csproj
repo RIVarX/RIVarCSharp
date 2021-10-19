@@ -53,7 +53,7 @@
     <Compile Include="Bag.cs" />
     <Compile Include="IBag.cs" />
     <Compile Include="Pump.cs" />
-    <Compile Include="RIvarBuildingBlocks\ExpressionsExtensions.cs" />
+    <Compile Include="RIvarBuildingBlocks\Expressions.cs" />
     <Compile Include="RIvarBuildingBlocks\IOperand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -5,7 +5,7 @@ namespace SignalExample_InfusionTherapy
 {
     public  interface IBag
     {
-        ISubject<Signal<IOperand>> Amount { get; }
-        ISubject<Signal<IOperand>> Volume { get; }
+        RIvar<IOperand> Amount { get; }
+        RIvar<IOperand> Volume { get; }
     }
 }

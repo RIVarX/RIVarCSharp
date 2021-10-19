@@ -16,10 +16,10 @@ namespace WindowsFormsApp1
 {
     public partial class CascadingDropdown : Form
     {
-        Subject<Signal<string[]>> list1 = new Subject<Signal<string[]>>();
-        Subject<Signal<string[]>> list2 = new Subject<Signal<string[]>>();
-        Subject<Signal<string>> value1 = new Subject<Signal<string>>();
-        Subject<Signal<string>> value2 = new Subject<Signal<string>>();
+        RIvar<string[]> list1 = new RIvar<string[]>();
+        RIvar<string[]> list2 = new RIvar<string[]>();
+        RIvar<string> value1 = new RIvar<string>();
+        RIvar<string> value2 = new RIvar<string>();
 
         public CascadingDropdown()
         {
@@ -35,12 +35,12 @@ namespace WindowsFormsApp1
                 File.ReadLines("angular-cli-node-js-typescript-rxjs-compatiblity-matrix.csv").Skip(1).Select(o => o.Split(','))
                 .Select(line => new { angularVersion = line[1], nodeJSVersion = line[2] }).ToArray();
 
-            list2.Set(value1.SelectLatestSignal(o => compatibleList.Where(entry => string.IsNullOrEmpty(o) || entry.nodeJSVersion == o).Select(_ => _.angularVersion).Union(new[] { "" }).ToArray()));
-            list1.Set(value2.SelectLatestSignal(o => compatibleList.Where(entry => string.IsNullOrEmpty(o) || entry.angularVersion == o).Select(_ => _.nodeJSVersion).Union(new[] { "" }).ToArray()));
+            list2.Set(value1.Compute(value => compatibleList.Where(entry => string.IsNullOrEmpty(value) || entry.nodeJSVersion == value).Select(_ => _.angularVersion).Union(new[] { "" }).ToArray()));
+            list1.Set(value2.Compute(value => compatibleList.Where(entry => string.IsNullOrEmpty(value) || entry.angularVersion == value).Select(_ => _.nodeJSVersion).Union(new[] { "" }).ToArray()));
 
             ////if one items in the list - select it
-            value1.Set(list1.SelectLatestSignal(o => o).Where(o => o.Value.Count(_ => !string.IsNullOrEmpty(_)) == 1).SelectLatestSignal(o => o.Single(_ => !string.IsNullOrEmpty(_))));
-            value2.Set(list2.SelectLatestSignal(o => o).Where(o => o.Value.Count(_ => !string.IsNullOrEmpty(_)) == 1).SelectLatestSignal(o => o.Single(_ => !string.IsNullOrEmpty(_))));
+            value1.Set(list1.Where(o => o.Value.Count(_ => !string.IsNullOrEmpty(_)) == 1).Compute(o => o.Single(_ => !string.IsNullOrEmpty(_))));
+            value2.Set(list2.Where(o => o.Value.Count(_ => !string.IsNullOrEmpty(_)) == 1).Compute(o => o.Single(_ => !string.IsNullOrEmpty(_))));
 
             value1.OnNext(new Signal<string>(""));
             value2.OnNext(new Signal<string>(""));

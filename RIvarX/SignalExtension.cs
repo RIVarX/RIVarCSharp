@@ -7,41 +7,19 @@ namespace RIvarX
 {
     public static class SignalExtension
     {
-        public static void Set<T>(this ISubject<Signal<T>> target, IObservable<Signal<T>> source)
+        public static Expression<TResult> Compute<T1,T2, TResult>(this IObservable<Signal<T1>> observable1, IObservable<Signal<T2>> observable2, Func<T1, T2, TResult> resultSelector)
         {
-            var targetWithInitialValue = target.StartWith(default(Signal<T>));
-
-            var streamOfChanges = Observable.CombineLatest(source, targetWithInitialValue, (valueInSource, valueInTarget) => new Tuple<Signal<T>, Signal<T>>(valueInSource, valueInTarget));
-
-            var streamOfChangesInSource = streamOfChanges.Where(change => change.Item1.CompareTo(change.Item2) > 0).Select(change => change.Item1);
-
-            streamOfChangesInSource.Subscribe(target.OnNext);// update the target for changes in the source
-        }
-
-        public static IObservable<Signal<T>> SelectLatest<T>(this IObservable<Signal<T>> source, params IObservable<Signal<T>>[] moreSources)
-        {
-            var allSources = moreSources.Union(new[] { source }).ToArray();
-
-            return SelectLatest(allSources);
-        }
-
-        private static IObservable<Signal<T>> SelectLatest<T>(this IObservable<Signal<T>>[] sources)
-        {
-            return Observable.CombineLatest(sources.Select(o => o.StartWith(default(Signal<T>))), o => o)
-            .Select(valuesFromAllSources => valuesFromAllSources.Where(o => o != default(Signal<T>)).Max())
-            .DistinctUntilChanged()
-            .Publish().RefCount();
-        }
-
-        public static IObservable<Signal<TResult>> CombineLatestSignal<T1,T2, TResult>(this IObservable<Signal<T1>> observable1, IObservable<Signal<T2>> observable2, Func<T1, T2, TResult> resultSelector)
-        {
-            return Observable.CombineLatest(observable1.Monotonic(), observable2.Monotonic(), (x, y) => ProduceResult(resultSelector, x, y))
+            var stream= Observable.CombineLatest(observable1.Monotonic(), observable2.Monotonic(), (x, y) => ProduceResult(resultSelector, x, y))
                 .Publish().RefCount();
+
+            return new Expression<TResult>(stream);
         }
-        public static IObservable<Signal<TResult>> SelectLatestSignal<T, TResult>(this IObservable<Signal<T>> observable, Func<T, TResult> resultSelector)
+        public static Expression<TResult> Compute<T, TResult>(this IObservable<Signal<T>> observable, Func<T, TResult> resultSelector)
         {
-            return observable.Monotonic().Select(o =>
+            var stream= observable.Monotonic().Select(o =>
             o == null ? default(Signal<TResult>) : new Signal<TResult>(resultSelector(o.Value),o.PrioritySet)).Publish().RefCount();
+
+            return new Expression<TResult>(stream);
         }
 
         private static Signal<TResult> ProduceResult<T1,T2, TResult>(Func<T1, T2, TResult> resultSelector, Signal<T1> x, Signal<T2> y)
@@ -73,12 +51,28 @@ namespace RIvarX
         /// <typeparam name="T"></typeparam>
         /// <param name="source"></param>
         /// <returns></returns>
-        public static IObservable<Signal<T>> Monotonic<T>(this IObservable<Signal<T>> source)
+        static IObservable<Signal<T>> Monotonic<T>(this IObservable<Signal<T>> source)
         {
             return source.Select(o => o).Scan((x, y) => x.CompareTo(y) > 0 ? x : y).Select(o => o).DistinctUntilChanged().Select(o => o);
         }
 
 
+        #region MoreThanTwo Merge several streams
+        public static IObservable<Signal<T>> SelectLatest<T>(this IObservable<Signal<T>> source, params IObservable<Signal<T>>[] moreSources)
+        {
+            var allSources = moreSources.Union(new[] { source }).ToArray();
+
+            return SelectLatest(allSources);
+        }
+
+        private static IObservable<Signal<T>> SelectLatest<T>(this IObservable<Signal<T>>[] sources)
+        {
+            return Observable.CombineLatest(sources.Select(o => o.StartWith(default(Signal<T>))), o => o)
+            .Select(valuesFromAllSources => valuesFromAllSources.Where(o => o != default(Signal<T>)).Max())
+            .DistinctUntilChanged()
+            .Publish().RefCount();
+        }
+        #endregion
     }
 }
 

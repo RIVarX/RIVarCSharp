@@ -9,14 +9,12 @@ namespace SignalExample_InfusionTherapy
     
     public class Pump
     {
-        public ISubject<Signal<IOperand>> Rate = new Subject<Signal<IOperand>>();
-        public ISubject<Signal<IOperand>> Dose = new Subject<Signal<IOperand>>();
-        public ISubject<Signal<IOperand>> Duration = new Subject<Signal<IOperand>>();
+        public RIvar<IOperand> Rate = new RIvar<IOperand>();
+        public RIvar<IOperand> Dose = new RIvar<IOperand>();
+        public RIvar<IOperand> Duration = new RIvar<IOperand>();
 
         public Pump(IBag bag)
         {
-           
-
             Dose.Set(bag.Amount.Div(Duration));
             Rate.Set(bag.Volume.Div(Duration));
 

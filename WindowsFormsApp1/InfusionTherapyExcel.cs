@@ -14,34 +14,57 @@ using RIvarX;
 
 namespace WindowsFormsApp1
 {
-    public partial class Form2 : Form
+    public partial class InfusionTherapyExcel : Form
     {
-      
+        private RIvar<IOperand> amount = new RIvar<IOperand>();
+        private RIvar<IOperand> volume = new RIvar<IOperand>();
+        private RIvar<IOperand> concentration = new RIvar<IOperand>();
+        public RIvar<IOperand> Rate = new RIvar<IOperand>();
+        public RIvar<IOperand> Dose = new RIvar<IOperand>();
+        public RIvar<IOperand> Duration = new RIvar<IOperand>();
 
-        Subject<Signal<IOperand>> A1 = new Subject<Signal<IOperand>>();
-        Subject<Signal<IOperand>> B1 = new Subject<Signal<IOperand>>();
-        Subject<Signal<IOperand>> C1 = new Subject<Signal<IOperand>>();
-  
-
-        public Form2()
+        public InfusionTherapyExcel()
         {
             InitializeComponent();
 
-            Connect(A1, _A1);
-            Connect(B1, _B1);
-            Connect(C1, _C1);
+            ConnectCells();
 
-            C1.Set(A1.Mul(B1));
-            A1.Set(C1.Div(B1));
-            B1.Set(C1.Div(A1));
+            SpreadsheetFormulas();
 
+           
+        }
+
+        private void ConnectCells()
+        {
+            Connect(amount, AmountCell);
+            Connect(volume, VolumeControl);
+            Connect(concentration, ConcentrationControl);
+            Connect(Rate, RateControl);
+            Connect(Dose, DoseCell);
+            Connect(Duration, DurationCell);
+        }
+
+        private void SpreadsheetFormulas()
+        {
+            concentration.Set(amount.Div(volume));
+            amount.Set(concentration.Mul(volume));
+            volume.Set(amount.Div(concentration));
+
+            Dose.Set(amount.Div(Duration));
+            Rate.Set(volume.Div(Duration));
+
+            Duration.Set(amount.Div(Dose));
+            Duration.Set(volume.Div(Rate));
+
+            amount.Set(Duration.Mul(Dose));
+            volume.Set(Duration.Mul(Rate));
         }
 
         public event EventHandler<double> ControlValueChanged;
         NumericUpDown _lastValueChangedControl;
         string _id = Guid.NewGuid().ToString();
 
-        void Connect(Subject<Signal<IOperand>> subject, NumericUpDown control)
+        void Connect(RIvar<IOperand> subject, NumericUpDown control)
         {
             subject.Subscribe(x => SetValue(control, x));
             var observable = GetObservable(control);
@@ -52,7 +75,7 @@ namespace WindowsFormsApp1
             control.LostFocus += O_LostFocus;
         }
 
-        private  void SetValue( NumericUpDown control, Signal<IOperand> sig)
+        private void SetValue(NumericUpDown control, Signal<IOperand> sig)
         {
             lock (this)
             {
@@ -84,7 +107,7 @@ namespace WindowsFormsApp1
 
         private void Control_GotFocus(object sender, EventArgs e)
         {
-            txtFormula.Text = (sender as NumericUpDown).Tag?.ToString();
+            txtFormula.Text = (sender as NumericUpDown).Tag?.ToString()?.Replace("\\n",Environment.NewLine);
         }
 
         private void O_LostFocus(object sender, EventArgs e)
@@ -110,7 +133,7 @@ namespace WindowsFormsApp1
             }
         }
 
-         IObservable<Signal<IOperand>> GetObservable( NumericUpDown control)
+        IObservable<Signal<IOperand>> GetObservable(NumericUpDown control)
         {
             return Observable.FromEventPattern<double>(this, "ControlValueChanged").Where(o => o.Sender == control).Select(o => (o.Sender as NumericUpDown).Value.ToString())//.Scan((x,y)=>y)//.Select(o=> Convert.ToDouble(o))
                 .Select(o => new QuantableValue(Convert.ToDouble(o))).Select(o => new Signal<IOperand>(o)).DistinctUntilChanged()
