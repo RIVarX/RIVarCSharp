@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example_UI", "WindowsFormsA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RIvarX", "RIvarX\RIvarX.csproj", "{92B8945D-E615-48AF-8D66-628210C29D41}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example_ComponentsVersions", "Example_ComponentsVersions\Example_ComponentsVersions.csproj", "{2DED4BAF-1342-4588-B8AB-C3CCE9DB780A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{92B8945D-E615-48AF-8D66-628210C29D41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92B8945D-E615-48AF-8D66-628210C29D41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92B8945D-E615-48AF-8D66-628210C29D41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DED4BAF-1342-4588-B8AB-C3CCE9DB780A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DED4BAF-1342-4588-B8AB-C3CCE9DB780A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DED4BAF-1342-4588-B8AB-C3CCE9DB780A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DED4BAF-1342-4588-B8AB-C3CCE9DB780A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

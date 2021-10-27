@@ -3,7 +3,7 @@ using RIvarX;
 
 namespace SignalExample_InfusionTherapy
 {
-   public static class ExpressionsExtensions
+   public static class Operators
     {
         /// <summary>
         /// *

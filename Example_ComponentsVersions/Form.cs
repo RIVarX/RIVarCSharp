@@ -12,16 +12,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using RIvarX;
 
-namespace WindowsFormsApp1
+namespace Example_ComponentsVersions
 {
-    public partial class CascadingDropdown : Form
+    public partial class Form : System.Windows.Forms.Form
     {
         RIvar<string[]> list1 = new RIvar<string[]>();
         RIvar<string[]> list2 = new RIvar<string[]>();
         RIvar<string> value1 = new RIvar<string>();
         RIvar<string> value2 = new RIvar<string>();
 
-        public CascadingDropdown()
+        public Form()
         {
             InitializeComponent();
         }
