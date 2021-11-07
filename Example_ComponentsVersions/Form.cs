@@ -16,10 +16,14 @@ namespace Example_ComponentsVersions
 {
     public partial class Form : System.Windows.Forms.Form
     {
-        RIvar<string[]> list1 = new RIvar<string[]>();
-        RIvar<string[]> list2 = new RIvar<string[]>();
-        RIvar<string> value1 = new RIvar<string>();
-        RIvar<string> value2 = new RIvar<string>();
+        RIvar<string> nodejs = new RIvar<string>();
+        RIvar<string[]> nodejsOptions = new RIvar<string[]>();
+
+        RIvar<string> angular = new RIvar<string>();
+        RIvar<string[]> angularOptions = new RIvar<string[]>();
+
+        RIvar<string> angularCLI = new RIvar<string>();
+        RIvar<string[]> angularCLIOptions = new RIvar<string[]>();
 
         public Form()
         {
@@ -33,29 +37,58 @@ namespace Example_ComponentsVersions
             //https://gist.github.com/LayZeeDK/c822cc812f75bb07b7c55d07ba2719b3
             var compatibleList =
                 File.ReadLines("angular-cli-node-js-typescript-rxjs-compatiblity-matrix.csv").Skip(1).Select(o => o.Split(','))
-                .Select(line => new { angularVersion = line[1], nodeJSVersion = line[2] }).ToArray();
+                .Select(line => new { angularCLI=line[0], angularVersion = line[1], nodeJSVersion = line[2] }).ToArray();
 
-            list2.Set(value1.Compute(value => compatibleList.Where(entry => string.IsNullOrEmpty(value) || entry.nodeJSVersion == value).Select(_ => _.angularVersion).Union(new[] { "" }).ToArray()));
-            list1.Set(value2.Compute(value => compatibleList.Where(entry => string.IsNullOrEmpty(value) || entry.angularVersion == value).Select(_ => _.nodeJSVersion).Union(new[] { "" }).ToArray()));
+
+
+            var filteredBySelectedNodejs = nodejs.Compute(value => compatibleList.Where(entry => string.IsNullOrEmpty(value) || entry.nodeJSVersion == value));
+            var filteredBySelectedAngular = angular.Compute(value => compatibleList.Where(entry => string.IsNullOrEmpty(value) || entry.angularVersion == value));
+            var filteredBySelectedCLIAngular = angularCLI.Compute(value => compatibleList.Where(entry => string.IsNullOrEmpty(value) || entry.angularCLI == value));
+
+
+            angularOptions.Set(filteredBySelectedNodejs.Compute(o => o.Select(x => x.angularVersion).ToArray()).Compute(filteredBySelectedCLIAngular.Compute(o => o.Select(x => x.angularVersion).ToArray()), (x, y) => x.Intersect(y).Union(new[] { "" }).ToArray()));
+
+            nodejsOptions.Set(filteredBySelectedAngular.Compute(o => o.Select(x => x.nodeJSVersion).ToArray()).Compute(filteredBySelectedCLIAngular.Compute(o => o.Select(x => x.nodeJSVersion).ToArray()), (x, y) => x.Intersect(y).Union(new[] { "" }).ToArray()));
+
+            angularCLIOptions.Set(filteredBySelectedNodejs.Compute(o => o.Select(x => x.angularCLI).ToArray()).Compute(filteredBySelectedAngular.Compute(o => o.Select(x => x.angularCLI).ToArray()), (x, y) => x.Intersect(y).Union(new[] { "" }).ToArray()));
+
+            /*
+            angularOptions.Set(filteredBySelectedNodejs.Compute(o => o.Select(x => x.angularVersion).ToArray()));
+            angularOptions.Set(angularOptions.Compute(filteredBySelectedCLIAngular.Compute(o => o.Select(x => x.angularVersion).ToArray()), (x, y) => x.Intersect(y).Union(new[] { "" }).ToArray()));
+
+            nodejsOptions.Set(filteredBySelectedAngular.Compute(o => o.Select(x => x.nodeJSVersion).ToArray()));
+            nodejsOptions.Set(nodejsOptions.Compute(filteredBySelectedCLIAngular.Compute(o => o.Select(x => x.nodeJSVersion).ToArray()), (x, y) => x.Intersect(y).Union(new[] { "" }).ToArray()));
+
+            angularCLIOptions.Set(filteredBySelectedNodejs.Compute(o => o.Select(x => x.angularCLI).ToArray()));
+            angularCLIOptions.Set(angularCLIOptions.Compute(filteredBySelectedAngular.Compute(o => o.Select(x => x.angularCLI).ToArray()), (x, y) => x.Intersect(y).Union(new[] { "" }).ToArray()));
+            */
+            //  angularOptions.Set(nodejs.Compute(value => compatibleList.Where(entry => string.IsNullOrEmpty(value) || entry.nodeJSVersion == value).Select(_ => _.angularVersion).Union(new[] { "" }).ToArray()));
+            //   nodejsOptions.Set(angular.Compute(value => compatibleList.Where(entry => string.IsNullOrEmpty(value) || entry.angularVersion == value).Select(_ => _.nodeJSVersion).Union(new[] { "" }).ToArray()));
+
 
             ////if one items in the list - select it
-            value1.Set(list1.Where(o => o.Value.Count(_ => !string.IsNullOrEmpty(_)) == 1).Compute(o => o.Single(_ => !string.IsNullOrEmpty(_))));
-            value2.Set(list2.Where(o => o.Value.Count(_ => !string.IsNullOrEmpty(_)) == 1).Compute(o => o.Single(_ => !string.IsNullOrEmpty(_))));
+            //  nodejs.Set(nodejsOptions.Where(o => o.Value.Count(_ => !string.IsNullOrEmpty(_)) == 1).Compute(o => o.Single(_ => !string.IsNullOrEmpty(_))));
+            //angular.Set(angularOptions.Where(o => o.Value.Count(_ => !string.IsNullOrEmpty(_)) == 1).Compute(o => o.Single(_ => !string.IsNullOrEmpty(_))));
 
-            value1.OnNext(new Signal<string>(""));
-            value2.OnNext(new Signal<string>(""));
+
+            nodejs.OnNext(new Signal<string>(""));
+            angular.OnNext(new Signal<string>(""));
+            angularCLI.OnNext(new Signal<string>(""));
         }
 
         private void Connect()
         {
-            list1.Subscribe(currentList => updateComboboxList(currentList, comboBox1));
-            list2.Subscribe(currentList => updateComboboxList(currentList, comboBox2));
+            nodejsOptions.Subscribe(currentList => updateComboboxList(currentList, comboBox1));
+            angularOptions.Subscribe(currentList => updateComboboxList(currentList, comboBox2));
+            angularCLIOptions.Subscribe(currentList => updateComboboxList(currentList, comboBox3));
 
-            value1.Subscribe(o => { if (comboBox1.SelectedItem?.ToString() != o.Value) comboBox1.SelectedItem = o.Value; });
-            value2.Subscribe(o => { if (comboBox2.SelectedItem?.ToString() != o.Value) comboBox2.SelectedItem = o.Value; });
+            nodejs.Subscribe(o => { if (comboBox1.SelectedItem?.ToString() != o.Value) comboBox1.SelectedItem = o.Value; });
+            angular.Subscribe(o => { if (comboBox2.SelectedItem?.ToString() != o.Value) comboBox2.SelectedItem = o.Value; });
+            angularCLI.Subscribe(o => { if (comboBox3.SelectedItem?.ToString() != o.Value) comboBox3.SelectedItem = o.Value; });
 
             comboBox1.SelectedIndexChanged += ComboBox1_SelectedIndexChanged;
             comboBox2.SelectedIndexChanged += ComboBox2_SelectedIndexChanged;
+            comboBox3.SelectedIndexChanged += ComboBox3_SelectedIndexChanged;
         }
 
         private static void updateComboboxList(Signal<string[]> currentList, ComboBox comboBox)
@@ -74,15 +107,19 @@ namespace Example_ComponentsVersions
                 }
             }
         }
+        private void ComboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            angularCLI.OnNext(new Signal<string>((sender as ComboBox).SelectedItem.ToString()));
+        }
 
         private void ComboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            value2.OnNext(new Signal<string>((sender as ComboBox).SelectedItem.ToString()));
+            angular.OnNext(new Signal<string>((sender as ComboBox).SelectedItem.ToString()));
         }
 
         private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            value1.OnNext(new Signal<string>((sender as ComboBox).SelectedItem.ToString()));
+            nodejs.OnNext(new Signal<string>((sender as ComboBox).SelectedItem.ToString()));
         }
     }
 }
