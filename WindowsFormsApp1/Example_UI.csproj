@@ -124,7 +124,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DosageDomainModel\Example_InfusionTherapy.csproj">
+    <ProjectReference Include="..\Example_InfusionTherapy\Example_InfusionTherapy.csproj">
       <Project>{84e9c32a-cf29-4f15-b6e7-a9136506a83e}</Project>
       <Name>Example_InfusionTherapy</Name>
     </ProjectReference>

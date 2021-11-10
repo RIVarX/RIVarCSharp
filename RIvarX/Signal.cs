@@ -3,16 +3,21 @@ using System.Linq;
 
 namespace RIvarX
 {
+    public class Globals
+    {
+        public static int _priorityIterator = 0;
+    }
+
     public class Signal<T> : IComparable<Signal<T>>, IEquatable<Signal<T>>
     {
-        private static int _priorityIterator = 0;
+       
         private readonly int[] _prioritySet;
 
         public T Value { get; }
         public int[] PrioritySet => _prioritySet??new int[] { 0 };
         public Signal(T value)
         {
-            _prioritySet = new int[] { ++_priorityIterator };
+            _prioritySet = new int[] { ++Globals._priorityIterator };
             Value = value;
         }
 
