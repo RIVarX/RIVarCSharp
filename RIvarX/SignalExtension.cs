@@ -7,9 +7,9 @@ namespace RIvarX
 {
     public static class SignalExtension
     {
-        public static Expression<TResult> Compute<T1,T2, TResult>(this IObservable<Signal<T1>> observable1, IObservable<Signal<T2>> observable2, Func<T1, T2, TResult> resultSelector)
+        public static Expression<TResult> Compute<T1,T2, TResult>(this IObservable<Signal<T1>> observable1, IObservable<Signal<T2>> observable2, Func<T1, T2, TResult> resultSelector) where TResult : class
         {
-            var stream= Observable.CombineLatest(observable1.Monotonic(), observable2.Monotonic(), (x, y) => ProduceResult(resultSelector, x, y))
+            var stream = Observable.CombineLatest(observable1.Monotonic().Select(o => o), observable2.Monotonic().Select(o => o), (x, y) => ProduceResult(resultSelector, x, y))
                 .Publish().RefCount();
 
             return new Expression<TResult>(stream);
@@ -22,7 +22,7 @@ namespace RIvarX
             return new Expression<TResult>(stream);
         }
 
-        private static Signal<TResult> ProduceResult<T1,T2, TResult>(Func<T1, T2, TResult> resultSelector, Signal<T1> x, Signal<T2> y)
+        private static Signal<TResult> ProduceResult<T1, T2, TResult>(Func<T1, T2, TResult> resultSelector, Signal<T1> x, Signal<T2> y) where TResult : class
         {
             if (x != default(Signal<T1>) && y != default(Signal<T2>))
             {
@@ -31,14 +31,17 @@ namespace RIvarX
                 return new Signal<TResult>(default(TResult), x.PrioritySet.Union(y.PrioritySet).ToArray());
             }
 
+
             if (x != default(Signal<T1>))
             {
-                return new Signal<TResult>(default(TResult), x.PrioritySet.Union(new int[] { 0 }).ToArray());
+                //   if (typeof(T1) == typeof(TResult))
+                //  return new Signal<TResult>(x.Value as TResult, x.PrioritySet.Union(new int[] { 0 }).ToArray());
+                return new Signal<TResult>(default(TResult), x.PrioritySet.Union(new int[] { }).ToArray());
             }
 
             if (y != default(Signal<T2>))
             {
-                return new Signal<TResult>(default(TResult), y.PrioritySet.Union(new int[] { 0 }).ToArray());
+                return new Signal<TResult>(default(TResult), y.PrioritySet.Union(new int[] { }).ToArray());
             }
 
             return default(Signal<TResult>);
@@ -51,9 +54,9 @@ namespace RIvarX
         /// <typeparam name="T"></typeparam>
         /// <param name="source"></param>
         /// <returns></returns>
-        static IObservable<Signal<T>> Monotonic<T>(this IObservable<Signal<T>> source)
+        public static IObservable<Signal<T>> Monotonic<T>(this IObservable<Signal<T>> source)
         {
-            return source.Select(o => o).Scan((x, y) => x.CompareTo(y) > 0 ? x : y).Select(o => o).DistinctUntilChanged().Select(o => o);
+            return source.Select(o => o).Scan((x, y) => y.CompareTo(x) > 0 ? y : x).Select(o => o).DistinctUntilChanged().Select(o => o);
         }
 
 

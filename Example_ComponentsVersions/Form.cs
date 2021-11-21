@@ -40,7 +40,8 @@ namespace Example_ComponentsVersions
                 File.ReadLines("angular-cli-node-js-typescript-rxjs-compatiblity-matrix.csv").Skip(1).Select(o => o.Split(','))
                 .Select(line => new { angularCLI=line[0], angularVersion = line[1], nodeJSVersion = line[2] }).ToArray();
 
-            angularOptions.Set(nodejsOptions.FilterBy(nodejs,  o => o.nodeJSVersion, o => o.angularVersion));
+
+            angularOptions.Set(nodejsOptions.FilterBy(nodejs, o => o.nodeJSVersion, o => o.angularVersion));
             angularOptions.Set(angularCLIOptions.FilterBy(angularCLI, o => o.angularCLI, o => o.angularVersion));
 
             nodejsOptions.Set(angularOptions.FilterBy(angular, o => o.angularVersion, o => o.nodeJSVersion));
@@ -48,43 +49,15 @@ namespace Example_ComponentsVersions
 
             angularCLIOptions.Set(nodejsOptions.FilterBy(nodejs, o => o.nodeJSVersion, o => o.angularCLI));
             angularCLIOptions.Set(angularOptions.FilterBy(angular, o => o.angularVersion, o => o.angularCLI));
-            /*
-                        var filteredBySelectedNodejs = nodejs.Compute(value => compatibleList.Where(entry => string.IsNullOrEmpty(value) || entry.nodeJSVersion == value));
-                        var filteredBySelectedAngular = angular.Compute(value => compatibleList.Where(entry => string.IsNullOrEmpty(value) || entry.angularVersion == value));
-                        var filteredBySelectedCLIAngular = angularCLI.Compute(value => compatibleList.Where(entry => string.IsNullOrEmpty(value) || entry.angularCLI == value));
 
 
-                        angularOptions.Set(filteredBySelectedNodejs.Compute(o => o.Select(x => x.angularVersion).ToArray()).Compute(filteredBySelectedCLIAngular.Compute(o => o.Select(x => x.angularVersion).ToArray()), (x, y) => x.Intersect(y).Union(new[] { "" }).ToArray()));
-
-                        nodejsOptions.Set(filteredBySelectedAngular.Compute(o => o.Select(x => x.nodeJSVersion).ToArray()).Compute(filteredBySelectedCLIAngular.Compute(o => o.Select(x => x.nodeJSVersion).ToArray()), (x, y) => x.Intersect(y).Union(new[] { "" }).ToArray()));
-
-                        angularCLIOptions.Set(filteredBySelectedNodejs.Compute(o => o.Select(x => x.angularCLI).ToArray()).Compute(filteredBySelectedAngular.Compute(o => o.Select(x => x.angularCLI).ToArray()), (x, y) => x.Intersect(y).Union(new[] { "" }).ToArray()));
-            */
-            /*
-            angularOptions.Set(filteredBySelectedNodejs.Compute(o => o.Select(x => x.angularVersion).ToArray()));
-            angularOptions.Set(angularOptions.Compute(filteredBySelectedCLIAngular.Compute(o => o.Select(x => x.angularVersion).ToArray()), (x, y) => x.Intersect(y).Union(new[] { "" }).ToArray()));
-
-            nodejsOptions.Set(filteredBySelectedAngular.Compute(o => o.Select(x => x.nodeJSVersion).ToArray()));
-            nodejsOptions.Set(nodejsOptions.Compute(filteredBySelectedCLIAngular.Compute(o => o.Select(x => x.nodeJSVersion).ToArray()), (x, y) => x.Intersect(y).Union(new[] { "" }).ToArray()));
-
-            angularCLIOptions.Set(filteredBySelectedNodejs.Compute(o => o.Select(x => x.angularCLI).ToArray()));
-            angularCLIOptions.Set(angularCLIOptions.Compute(filteredBySelectedAngular.Compute(o => o.Select(x => x.angularCLI).ToArray()), (x, y) => x.Intersect(y).Union(new[] { "" }).ToArray()));
-            */
-            //  angularOptions.Set(nodejs.Compute(value => compatibleList.Where(entry => string.IsNullOrEmpty(value) || entry.nodeJSVersion == value).Select(_ => _.angularVersion).Union(new[] { "" }).ToArray()));
-            //   nodejsOptions.Set(angular.Compute(value => compatibleList.Where(entry => string.IsNullOrEmpty(value) || entry.angularVersion == value).Select(_ => _.nodeJSVersion).Union(new[] { "" }).ToArray()));
+            //default lists
+            comboBox1.Items.Clear();
+            comboBox1.Items.AddRange(compatibleList.Select(o => o.nodeJSVersion).Union(new[] { "" }).Distinct().ToArray());
+            comboBox2.Items.AddRange(compatibleList.Select(o => o.angularVersion).Union(new[] { "" }).Distinct().ToArray());
+            comboBox3.Items.AddRange(compatibleList.Select(o => o.angularCLI).Union(new[] { "" }).Distinct().ToArray());
 
 
-            ////if one items in the list - select it
-            //  nodejs.Set(nodejsOptions.Where(o => o.Value.Count(_ => !string.IsNullOrEmpty(_)) == 1).Compute(o => o.Single(_ => !string.IsNullOrEmpty(_))));
-            //angular.Set(angularOptions.Where(o => o.Value.Count(_ => !string.IsNullOrEmpty(_)) == 1).Compute(o => o.Single(_ => !string.IsNullOrEmpty(_))));
-
-            nodejsOptions.OnNext(new Signal<string[]>(compatibleList.Select(o=>o.nodeJSVersion).ToArray()));
-         //   angularCLIOptions.OnNext(new Signal<string[]>(compatibleList.Select(o => o.angularCLI).ToArray()));
-        //    angularOptions.OnNext(new Signal<string[]>(compatibleList.Select(o => o.angularVersion).ToArray()));
-           // nodejs.OnNext(new Signal<string>(""));
-         //   angular.OnNext(new Signal<string>(""));
-         //   angularCLI.OnNext(new Signal<string>(""));
-         
         }
 
         private void Connect()
@@ -104,6 +77,9 @@ namespace Example_ComponentsVersions
 
         private static void updateComboboxList(Signal<string[]> currentList, ComboBox comboBox)
         {
+            if (currentList.Value == null)
+                return;
+
             var itemsToRemove = comboBox.Items.OfType<string>().Where(item => !currentList.Value.Contains(item)).ToArray();
 
             foreach (var item in itemsToRemove)
