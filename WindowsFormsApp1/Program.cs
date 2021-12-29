@@ -56,7 +56,7 @@ namespace WindowsFormsApp1
             var c1 = GetObservable(f, f._C1);
 
            //  Application.Run(new Form2());//simple excel
-             Application.Run(new InfusionTherapyExcel());//infusion in excel
+             Application.Run(new InfusionTherapy_UserControls());//infusion in excel
 
           //   Application.Run(form1);//infusion modular
 
