@@ -17,8 +17,8 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
             _userControl_Pump = new WindowsFormsApp1.UserControl_Pump(userControl_Bag1);
-            this._userControl_Pump.Location = new System.Drawing.Point(50, 300);
-        
+            this._userControl_Pump.Location = new System.Drawing.Point(0, 150);
+
             this._userControl_Pump.Size = new System.Drawing.Size(507, 123);
             this._userControl_Pump.TabIndex = 1;
             // 
@@ -26,7 +26,7 @@ namespace WindowsFormsApp1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+        
             this.Controls.Add(this._userControl_Pump);
             this.Name = "Form1";
             this.Text = "Form1";

@@ -79,21 +79,8 @@
     <Compile Include="InfusionTherapy.Designer.cs">
       <DependentUpon>InfusionTherapy.cs</DependentUpon>
     </Compile>
-    <Compile Include="Excel.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Excel.Designer.cs">
-      <DependentUpon>Excel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="InfusionTherapyExcel.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="InfusionTherapyExcel.Designer.cs">
-      <DependentUpon>InfusionTherapyExcel.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QuantableValue.cs" />
     <Compile Include="UserControl_Bag.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -111,12 +98,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InfusionTherapy.resx">
       <DependentUpon>InfusionTherapy.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Excel.resx">
-      <DependentUpon>Excel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InfusionTherapyExcel.resx">
-      <DependentUpon>InfusionTherapyExcel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -151,9 +132,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Example_InfusionTherapy\Example_InfusionTherapy.csproj">
+    <ProjectReference Include="..\DrugAdministration\DrugAdministration.csproj">
       <Project>{84e9c32a-cf29-4f15-b6e7-a9136506a83e}</Project>
-      <Name>Example_InfusionTherapy</Name>
+      <Name>DrugAdministration</Name>
     </ProjectReference>
     <ProjectReference Include="..\RIvarX\RIvarX.csproj">
       <Project>{92b8945d-e615-48af-8d66-628210c29d41}</Project>

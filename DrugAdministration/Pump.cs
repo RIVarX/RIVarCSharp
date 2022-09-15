@@ -4,14 +4,14 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using RIvarX;
 
-namespace SignalExample_InfusionTherapy
+namespace DrugAdministration
 {
     
     public class Pump
     {
-        public RIvar<IOperand> Rate = new RIvar<IOperand>();
-        public RIvar<IOperand> Dose = new RIvar<IOperand>();
-        public RIvar<IOperand> Duration = new RIvar<IOperand>();
+        public RIvar<decimal> Rate = new RIvar<decimal>();
+        public RIvar<decimal> Dose = new RIvar<decimal>();
+        public RIvar<decimal> Duration = new RIvar<decimal>();
 
         public Pump(IBag bag)
         {

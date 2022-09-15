@@ -92,6 +92,10 @@ namespace RIvarX
 
             return true;
         }
+
+        public static implicit operator Signal<T>(T v) => new Signal<T>(v);
+
+        public static implicit operator T(Signal<T> s) => s.Value;
     }
 
 

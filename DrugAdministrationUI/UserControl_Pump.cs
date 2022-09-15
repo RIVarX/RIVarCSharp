@@ -9,27 +9,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using RIvarX;
 using System.Reactive.Linq;
-using SignalExample_InfusionTherapy;
+using DrugAdministration;
 
 namespace WindowsFormsApp1
 {
-    public partial class UserControl_Bag : UserControl, IBag
+    public partial class UserControl_Pump : UserControl
     {
         public event EventHandler<double> ControlValueChanged;
         NumericUpDown _lastValueChangedControl;
         string _id = Guid.NewGuid().ToString();
-        Bag _bag;
-        public RIvar<IOperand> Amount => _bag.Amount;
 
-        public RIvar<IOperand> Volume => _bag.Volume;
 
-        public UserControl_Bag()
+        public UserControl_Pump(IBag bag)
         {
-            var bag = _bag = new Bag();
-
-         
-
-
             InitializeComponent();
 
             var a = this.Controls.OfType<NumericUpDown>().Union(Controls.OfType<NumericUpDown>()).ToList();
@@ -40,18 +32,20 @@ namespace WindowsFormsApp1
 
             });
 
-            var medicationInputs = GetObservable(numericUpDownMedication);
-            var volumeInputs = GetObservable(numericUpDownvolume);
-            var concentratioInputs = GetObservable(numericUpDownconc);
+            var doseInputs = GetObservable(numericUpDowndose);
+            var rateInputs = GetObservable(numericUpDownrate);
+            var durationInputs = GetObservable(numericUpDowndure);
+
+            var infusedBag = new Pump(bag);
+
+            doseInputs.Subscribe(x => infusedBag.Dose.OnNext(x));
+            rateInputs.Subscribe(x => infusedBag.Rate.OnNext(x));
+            durationInputs.Subscribe(x => infusedBag.Duration.OnNext(x));
 
 
-            medicationInputs.Subscribe(x => bag.Amount.OnNext(x));
-            volumeInputs.Subscribe(x => bag.Volume.OnNext(x));
-            concentratioInputs.Subscribe(x => bag.Concentration.OnNext(x));
-
-            bag.Volume.Subscribe(x => SetValue(numericUpDownvolume, x));
-            bag.Amount.Subscribe(x => SetValue(numericUpDownMedication, x));
-            bag.Concentration.Subscribe(x => SetValue(numericUpDownconc, x));
+            infusedBag.Dose.Subscribe(x => SetValue(numericUpDowndose, x));
+            infusedBag.Rate.Subscribe(x => SetValue(numericUpDownrate, x));
+            infusedBag.Duration.Subscribe(x => SetValue(numericUpDowndure, x));
         }
 
         private void O_LostFocus(object sender, EventArgs e)
@@ -77,21 +71,21 @@ namespace WindowsFormsApp1
             }
         }
 
-        private static decimal GetValue(Signal<IOperand> sig)
+        private static decimal GetValue(Signal<decimal> sig)
         {
-            if ((sig?.Value as QuantableValue)?.Value == null)
+            if (sig?.Value  == null)
                 return 0;
 
-            return Convert.ToDecimal((sig.Value as QuantableValue).Value);
+            return Convert.ToDecimal(sig.Value);
         }
 
-        private void SetValue(NumericUpDown control, Signal<IOperand> sig)
+        private void SetValue( NumericUpDown control, Signal<decimal> sig)
         {
             lock (this)
             {
 
 
-                if ((sig?.Value as QuantableValue)?.Value == null)
+                if (sig?.Value== null)
                 {
                     if (control.Value != 0)
                     {
@@ -103,7 +97,7 @@ namespace WindowsFormsApp1
                 else
 
                 {
-                    var dec = Math.Round(Convert.ToDecimal((sig.Value as QuantableValue).Value), 2);
+                    var dec = Math.Round(Convert.ToDecimal(sig.Value), 2);
                     System.IO.File.AppendAllText($"sets.txt", $"\r\n{control.Name}: {dec} <{string.Join(",", sig.PrioritySet)}>");
                     if (control.Value != dec)
                     {
@@ -117,10 +111,10 @@ namespace WindowsFormsApp1
 
         }
 
-        IObservable<Signal<IOperand>> GetObservable(NumericUpDown control)
+        IObservable<Signal<decimal>> GetObservable( NumericUpDown control)
         {
             return Observable.FromEventPattern<double>(this, "ControlValueChanged").Where(o => o.Sender == control).Select(o => (o.Sender as NumericUpDown).Value.ToString())//.Scan((x,y)=>y)//.Select(o=> Convert.ToDouble(o))
-                .Select(o => new QuantableValue(Convert.ToDouble(o))).Select(o => new Signal<IOperand>(o)).DistinctUntilChanged()
+                .Select(o => Convert.ToDecimal(o)).Select(o => new Signal<decimal>(o)).DistinctUntilChanged()
                 .Select(o => o).Publish().RefCount().Select(o => o);
         }
     }

@@ -7,22 +7,15 @@ namespace RIvarX
 {
     public static class SignalExtension
     {
-        public static Expression<TResult> Compute<T1,T2, TResult>(this IObservable<Signal<T1>> observable1, IObservable<Signal<T2>> observable2, Func<T1, T2, TResult> resultSelector) where TResult : class
+        public static Expression<TResult> Lift<T1, T2, TResult>(this Func<T1, T2, TResult> func, RIvar<T1> operand1, RIvar<T2> operand2)
         {
-            var stream = Observable.CombineLatest(observable1.Monotonic().Select(o => o), observable2.Monotonic().Select(o => o), (x, y) => ProduceResult(resultSelector, x, y))
-                .Publish().RefCount();
-
-            return new Expression<TResult>(stream);
-        }
-        public static Expression<TResult> Compute<T, TResult>(this IObservable<Signal<T>> observable, Func<T, TResult> resultSelector)
-        {
-            var stream= observable.Monotonic().Select(o =>
-            o == null ? default(Signal<TResult>) : new Signal<TResult>(resultSelector(o.Value),o.PrioritySet)).Publish().RefCount();
+            var stream = Observable.CombineLatest(operand1.Monotonic().Select(o => o), operand2.Monotonic().Select(o => o), (x, y) => ProduceResult(func, x, y))
+               .Publish().RefCount();
 
             return new Expression<TResult>(stream);
         }
 
-        private static Signal<TResult> ProduceResult<T1, T2, TResult>(Func<T1, T2, TResult> resultSelector, Signal<T1> x, Signal<T2> y) where TResult : class
+        private static Signal<TResult> ProduceResult<T1, T2, TResult>(Func<T1, T2, TResult> resultSelector, Signal<T1> x, Signal<T2> y)// where TResult : class
         {
             if (x != default(Signal<T1>) && y != default(Signal<T2>))
             {

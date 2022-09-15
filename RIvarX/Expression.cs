@@ -14,6 +14,7 @@ namespace RIvarX
         {
             return _stream.Subscribe(observer);
         }
+     
     }
 
 
