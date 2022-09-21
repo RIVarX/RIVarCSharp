@@ -53,6 +53,14 @@
 
 ```
 
+## Runtime (by a basic user interface)
+- Set Medication (Ammount), then Volume then Duration
+
+![image](https://user-images.githubusercontent.com/32875275/191579226-49091c26-ff7c-4e27-970e-3879637e56df.png)
+
+- Set Dose
+
+![image](https://user-images.githubusercontent.com/32875275/191579482-f4cdc439-c52f-4073-9b75-479157d9c798.png)
 
 
 
