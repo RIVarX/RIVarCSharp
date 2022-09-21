@@ -54,7 +54,7 @@
 ```
 
 ## Runtime (by a basic user interface)
-- Set Medication (Ammount), then Volume then Duration
+- Set Medication (Amount), then Volume then Duration
 
 ![image](https://user-images.githubusercontent.com/32875275/191579226-49091c26-ff7c-4e27-970e-3879637e56df.png)
 
