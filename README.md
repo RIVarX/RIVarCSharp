@@ -54,13 +54,15 @@
 ```
 
 ## Runtime (by a basic user interface)
-- Set Medication (Amount), then Volume then Duration
 
-![image](https://user-images.githubusercontent.com/32875275/191579226-49091c26-ff7c-4e27-970e-3879637e56df.png)
+- Set _Medication_ (Amount), then _Volume_ then _Duration_.
 
-- Set Dose
+![image](https://user-images.githubusercontent.com/32875275/191584414-3997bda3-35e1-43b7-90e0-ab4ef6a74768.png)
 
-![image](https://user-images.githubusercontent.com/32875275/191579482-f4cdc439-c52f-4073-9b75-479157d9c798.png)
+- Set _Dose_
+
+![image](https://user-images.githubusercontent.com/32875275/191584478-09a2f250-3fd2-4564-a503-b0d61d624b79.png)
+
 
 
 
