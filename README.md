@@ -63,6 +63,20 @@
 
 ![image](https://user-images.githubusercontent.com/32875275/191584478-09a2f250-3fd2-4564-a503-b0d61d624b79.png)
 
+## Learn, Usage or Contribution
+
+_RIvar_ is first developed and published as [RIvarX](https://www.nuget.org/packages/RIvar.RIvarX/1.0.0/) nuget package and is compatible with .net framework 4.5 or higher.
+
+Feel free to contact me, if you are curious about _RIvar_, want to learn about it, or if you want an implemention for other programming languages (or upgrades).
+
+Any feedback will be helpful!
+
+Thanks,
+
+Rivka Altshuler
+
+brandrivka@gmail.com
+
 
 
 
