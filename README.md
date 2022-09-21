@@ -1,39 +1,30 @@
 # RIvar
-**R**eactive **I**nstance **var**iables
+**R**eactive **I**nstance **var**iables - reactive variables contained in objects
 
+- Reactive variables are variables that automatically propagate changes to other variables, similar to formulas in Microsoft Excel.
 
-We lift the variables as "storage type" to *reactive* variables, 
-Changes to variables are automatically propagated to other variables similar to the behavior in Microsoft Excel.
+- When we set RIvar with an expression, it associates it in addition to other existing associations.
 
-You can connect variables on the same object, or across different objects.
-
-Cases when objects define *conflicts*, that are several assigments to a single variable, 
-the variables will contain the values that reflect the recent inputs.
-
+- In runtime - new input override old ones. This solves the conflicts of having several associations.
 
 # Example
 
 ```C#
     public  interface IBag
     {
-        ISubject<SignalValue<IOperand>> Amount { get; }
-        ISubject<SignalValue<IOperand>> Volume { get; }
+        RIvar<decimal> Amount { get; }
+        RIvar<decimal> Volume { get; }
     }
     
-    public class InfusedBag
+    public class Pump
     {
-       //Declaring Reactive Instance Variables
-        public ISubject<SignalValue<IOperand>> Rate = new Subject<SignalValue<IOperand>>();
-        public ISubject<SignalValue<IOperand>> Dose = new Subject<SignalValue<IOperand>>();
-        public ISubject<SignalValue<IOperand>> Duration = new Subject<SignalValue<IOperand>>();
+        public RIvar<decimal> Rate = new RIvar<decimal>();
+        public RIvar<decimal> Dose = new RIvar<decimal>();
+        public RIvar<decimal> Duration = new RIvar<decimal>();
 
-        public InfusedBag(IBag bag)
+        public Pump(IBag bag)
         {
-            //Declaring the Functional Relations, 
-            //e.g. Dose is set by Amount/Duration, 
-            
-                        
-            Dose.Set(bag.Amount.Div(Duration)); 
+            Dose.Set(bag.Amount.Div(Duration));
             Rate.Set(bag.Volume.Div(Duration));
 
             Duration.Set(bag.Amount.Div(Dose));
@@ -41,14 +32,16 @@ the variables will contain the values that reflect the recent inputs.
 
             bag.Amount.Set(Duration.Mul(Dose));
             bag.Volume.Set(Duration.Mul(Rate));
+
         }
+ 
     }
     
     public class Bag: IBag
     {
-        public ISubject<SignalValue<IOperand>> Amount { get; set; } = new Subject<SignalValue<IOperand>>();
-        public ISubject<SignalValue<IOperand>> Volume { get; set; } = new Subject<SignalValue<IOperand>>();
-        public ISubject<SignalValue<IOperand>> Concentration { get; set; } = new Subject<SignalValue<IOperand>>();
+        public RIvar<decimal> Amount { get; set; } = new RIvar<decimal>();
+        public RIvar<decimal> Volume { get; set; } = new RIvar<decimal>();
+        public RIvar<decimal> Concentration { get; set; } = new RIvar<decimal>();
 
         public Bag()
         {
