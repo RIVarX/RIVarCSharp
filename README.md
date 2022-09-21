@@ -1,6 +1,6 @@
 # RIvar: Reactive Instance Variable
 
-- ***R***eactive ***I***nstance ***var***iables are reactive variables contained in objects. 
+- ***R***eactive ***I***nstance ***var***iables are reactive variables contained in objects (i.e., in classes, abstract classes and interfaces). 
 - Reactive variables are variables that automatically propagate changes to other variables, similar to formulas in Microsoft Excel.
 - When we set RIvar with an expression, it associates it in addition to other existing associations.
 - In runtime - new input override old ones. This solves the conflicts of having several associations.
