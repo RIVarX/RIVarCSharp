@@ -55,7 +55,7 @@
 
 ## Runtime (by a basic user interface)
 
-- Set _Medication_ (Amount), then _Volume_ then _Duration_.
+- Set _Medication_ (named _Amount_), then _Volume_ then _Duration_.
 
 ![image](https://user-images.githubusercontent.com/32875275/191584414-3997bda3-35e1-43b7-90e0-ab4ef6a74768.png)
 
