@@ -65,7 +65,7 @@
 
 ## Learn, Usage or Contribution
 
-_RIvar_ is first developed and published as [RIvarX](https://www.nuget.org/packages/RIvar.RIvarX/1.0.0/) nuget package and is compatible with .net framework 4.5 or higher.
+**RIvar** is first developed and published as [RIvarX](https://www.nuget.org/packages/RIvar.RIvarX/1.0.0/) nuget package and is compatible with .net framework 4.5 or higher.
 
 Feel free to contact me, if you are curious about _RIvar_, want to learn about it, or if you want an implemention for other programming languages (or upgrades).
 
