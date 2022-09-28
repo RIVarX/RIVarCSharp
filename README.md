@@ -1,8 +1,8 @@
-# RIvar: Reactive Instance Variable
+# RIVar: Reactive Instance Variable
 
-- **R**eactive **I**nstance **var**iables (**RIvars**) are reactive variables contained in objects (i.e., in classes, abstract classes and interfaces). 
+- **R**eactive **I**nstance **var**iables (**RIVars**) are reactive variables contained in objects (i.e., in classes, abstract classes and interfaces). 
 - _Reactive_ variables are variables that automatically propagate changes to other variables, similar to formulas in Microsoft Excel.
-- Setting (assigning) a **RIvar** associates the set (assigned) expression, in addition to other existing associations.
+- Setting (assigning) a **RIVar** associates the set (assigned) expression, in addition to other existing associations.
 - In runtime - new input overrides old ones. This solves the conflicts of having several associations.
 
 # Example
@@ -16,9 +16,9 @@
     
     public class Pump
     {
-        public RIvar<decimal> Rate = new RIvar<decimal>();
-        public RIvar<decimal> Dose = new RIvar<decimal>();
-        public RIvar<decimal> Duration = new RIvar<decimal>();
+        public RIVar<decimal> Rate = new RIVar<decimal>();
+        public RIVar<decimal> Dose = new RIVar<decimal>();
+        public RIVar<decimal> Duration = new RIVar<decimal>();
 
         public Pump(IBag bag)
         {
@@ -37,9 +37,9 @@
     
     public class Bag: IBag
     {
-        public RIvar<decimal> Amount { get; set; } = new RIvar<decimal>();
-        public RIvar<decimal> Volume { get; set; } = new RIvar<decimal>();
-        public RIvar<decimal> Concentration { get; set; } = new RIvar<decimal>();
+        public RIVar<decimal> Amount { get; set; } = new RIVar<decimal>();
+        public RIVar<decimal> Volume { get; set; } = new RIVar<decimal>();
+        public RIVar<decimal> Concentration { get; set; } = new RIVar<decimal>();
 
         public Bag()
         {
@@ -65,9 +65,9 @@
 
 ## Learn, Usage or Contribution
 
-**RIvar** is first developed and published as [RIvarX](https://www.nuget.org/packages/RIvar.RIvarX/1.0.0/) nuget package and is compatible with .net framework 4.5 or higher.
+**RIVar** is first developed and published as [RIVarX](https://www.nuget.org/packages/RIvar.RIvarX/1.0.0/) nuget package and is compatible with .net framework 4.5 or higher.
 
-Feel free to contact me, if you are curious about _RIvar_, want to learn about it, or if you want an implemention for other programming languages (or upgrades).
+Feel free to contact me, if you are curious about **RIVar**, want to learn about it, or if you want an implemention for other programming languages (or upgrades).
 
 Any feedback will be helpful!
 
