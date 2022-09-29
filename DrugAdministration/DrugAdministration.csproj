@@ -60,9 +60,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RIvarX\RIvarX.csproj">
+    <ProjectReference Include="..\RIvarX\RIVarX.csproj">
       <Project>{92b8945d-e615-48af-8d66-628210c29d41}</Project>
-      <Name>RIvarX</Name>
+      <Name>RIVarX</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

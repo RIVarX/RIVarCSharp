@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{C34C6E4D-3FDD-4D0F-B7EC-05ECB8DA6601}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>WindowsFormsApp1</RootNamespace>
-    <AssemblyName>WindowsFormsApp1</AssemblyName>
+    <RootNamespace>DrugAdministrationUI</RootNamespace>
+    <AssemblyName>DrugAdministrationUI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -67,17 +67,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InfusionTherapy_UserControls.cs">
+    <Compile Include="Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InfusionTherapy_UserControls.Designer.cs">
-      <DependentUpon>InfusionTherapy_UserControls.cs</DependentUpon>
-    </Compile>
-    <Compile Include="InfusionTherapy.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="InfusionTherapy.Designer.cs">
-      <DependentUpon>InfusionTherapy.cs</DependentUpon>
+    <Compile Include="Form.Designer.cs">
+      <DependentUpon>Form.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -93,11 +87,8 @@
     <Compile Include="UserControl_Pump.Designer.cs">
       <DependentUpon>UserControl_Pump.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="InfusionTherapy_UserControls.resx">
-      <DependentUpon>InfusionTherapy_UserControls.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InfusionTherapy.resx">
-      <DependentUpon>InfusionTherapy.cs</DependentUpon>
+    <EmbeddedResource Include="Form.resx">
+      <DependentUpon>Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -136,13 +127,10 @@
       <Project>{84e9c32a-cf29-4f15-b6e7-a9136506a83e}</Project>
       <Name>DrugAdministration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RIvarX\RIvarX.csproj">
+    <ProjectReference Include="..\RIvarX\RIVarX.csproj">
       <Project>{92b8945d-e615-48af-8d66-628210c29d41}</Project>
-      <Name>RIvarX</Name>
+      <Name>RIVarX</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Infusion.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

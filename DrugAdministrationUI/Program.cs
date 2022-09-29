@@ -6,11 +6,11 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using RIvarX;
+using RIVarX;
 
 
 
-namespace WindowsFormsApp1
+namespace DrugAdministrationUI
 {
     static class Program
     {
@@ -24,7 +24,7 @@ namespace WindowsFormsApp1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new InfusionTherapy_UserControls());
+            Application.Run(new Form());
         }
     }
 

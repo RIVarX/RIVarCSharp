@@ -1,6 +1,6 @@
-﻿namespace WindowsFormsApp1
+﻿namespace DrugAdministrationUI
 {
-    partial class InfusionTherapy_UserControls
+    partial class Form
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.userControl_Bag1 = new WindowsFormsApp1.UserControl_Bag();
+            this.userControl_Bag1 = new DrugAdministrationUI.UserControl_Bag();
             this.SuspendLayout();
             // 
             // userControl_Bag1
@@ -44,7 +44,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(514, 312);
             this.Controls.Add(this.userControl_Bag1);
-            this.Name = "InfusionTherapy_UserControls";
+            this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace RIvarX
+namespace RIVarX
 {
     public class Globals
     {

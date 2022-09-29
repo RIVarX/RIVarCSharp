@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using RIvarX;
+using RIVarX;
 using System.Reactive.Linq;
 using DrugAdministration;
 
-namespace WindowsFormsApp1
+namespace DrugAdministrationUI
 {
     public partial class UserControl_Pump : UserControl
     {

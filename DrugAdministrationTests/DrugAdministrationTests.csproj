@@ -61,9 +61,9 @@
       <Project>{84e9c32a-cf29-4f15-b6e7-a9136506a83e}</Project>
       <Name>DrugAdministration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RIvarX\RIvarX.csproj">
+    <ProjectReference Include="..\RIvarX\RIVarX.csproj">
       <Project>{92B8945D-E615-48AF-8D66-628210C29D41}</Project>
-      <Name>RIvarX</Name>
+      <Name>RIVarX</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

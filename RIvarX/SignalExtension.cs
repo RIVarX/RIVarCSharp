@@ -3,11 +3,11 @@ using System.Reactive.Linq;
 using System.Linq;
 using System.Reactive.Subjects;
 
-namespace RIvarX
+namespace RIVarX
 {
     public static class SignalExtension
     {
-        public static Expression<TResult> Lift<T1, T2, TResult>(this Func<T1, T2, TResult> func, RIvar<T1> operand1, RIvar<T2> operand2)
+        public static Expression<TResult> Lift<T1, T2, TResult>(this Func<T1, T2, TResult> func, RIVar<T1> operand1, RIVar<T2> operand2)
         {
             var stream = Observable.CombineLatest(operand1.Monotonic().Select(o => o), operand2.Monotonic().Select(o => o), (x, y) => ProduceResult(func, x, y))
                .Publish().RefCount();

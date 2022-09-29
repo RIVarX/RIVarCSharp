@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using RIvarX;
+using RIVarX;
 using System.Reactive.Linq;
 using DrugAdministration;
 
-namespace WindowsFormsApp1
+namespace DrugAdministrationUI
 {
     public partial class UserControl_Bag : UserControl, IBag
     {
@@ -19,9 +19,9 @@ namespace WindowsFormsApp1
         NumericUpDown _lastValueChangedControl;
         string _id = Guid.NewGuid().ToString();
         Bag _bag;
-        public RIvar<decimal> Amount => _bag.Amount;
+        public RIVar<decimal> Amount => _bag.Amount;
 
-        public RIvar<decimal> Volume => _bag.Volume;
+        public RIVar<decimal> Volume => _bag.Volume;
 
         public UserControl_Bag()
         {

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>RIvar.RIvarX</id>
+    <version>1.0.0.0</version>
+    <title>Reactive Instance Variables</title>
+    <authors>Rivka Altshuler</authors>
+    <owners>Rivka Altshuler</owners>
+  
+    <projectUrl>https://github.com/RivkaAltshuler/RIvar</projectUrl>
+  
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Reactive Variables to be used as Instance Variables</description>
+    <releaseNotes>First Version</releaseNotes>
+    <copyright>Copyright 2022</copyright>
+    <tags>C# Reactive</tags>
+  </metadata>
+</package>

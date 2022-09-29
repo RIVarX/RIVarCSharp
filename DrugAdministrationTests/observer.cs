@@ -1,5 +1,5 @@
 ﻿using System;
-using RIvarX;
+using RIVarX;
 
 namespace DrugAdministrationTests
 {

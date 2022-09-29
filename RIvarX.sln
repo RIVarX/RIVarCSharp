@@ -7,9 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrugAdministration", "DrugA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrugAdministrationUI", "DrugAdministrationUI\DrugAdministrationUI.csproj", "{C34C6E4D-3FDD-4D0F-B7EC-05ECB8DA6601}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RIvarX", "RIvarX\RIvarX.csproj", "{92B8945D-E615-48AF-8D66-628210C29D41}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RIVarX", "RIVarX\RIVarX.csproj", "{92B8945D-E615-48AF-8D66-628210C29D41}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrugAdministrationTests", "DrugAdministrationTests\DrugAdministrationTests.csproj", "{003C4F6B-79CE-4A36-9F0E-57BF5D7D639F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CaseStudies", "CaseStudies", "{36F78D49-39A2-44A0-9394-FB205183E31E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DrugAdministration", "DrugAdministration", "{C7106AAD-5B72-4DCB-A54E-6C914A651658}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +40,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{84E9C32A-CF29-4F15-B6E7-A9136506A83E} = {C7106AAD-5B72-4DCB-A54E-6C914A651658}
+		{C34C6E4D-3FDD-4D0F-B7EC-05ECB8DA6601} = {C7106AAD-5B72-4DCB-A54E-6C914A651658}
+		{003C4F6B-79CE-4A36-9F0E-57BF5D7D639F} = {C7106AAD-5B72-4DCB-A54E-6C914A651658}
+		{C7106AAD-5B72-4DCB-A54E-6C914A651658} = {36F78D49-39A2-44A0-9394-FB205183E31E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {020B3B85-FBDC-464C-AD89-B2DA19C7CFFD}

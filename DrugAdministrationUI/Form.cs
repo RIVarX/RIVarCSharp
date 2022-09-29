@@ -8,15 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowsFormsApp1
+namespace DrugAdministrationUI
 {
-    public partial class InfusionTherapy_UserControls : Form
+    public partial class Form : System.Windows.Forms.Form
     {
         UserControl_Pump _userControl_Pump;
-        public InfusionTherapy_UserControls()
+        public Form()
         {
             InitializeComponent();
-            _userControl_Pump = new WindowsFormsApp1.UserControl_Pump(userControl_Bag1);
+            _userControl_Pump = new DrugAdministrationUI.UserControl_Pump(userControl_Bag1);
             this._userControl_Pump.Location = new System.Drawing.Point(0, 150);
 
             this._userControl_Pump.Size = new System.Drawing.Size(507, 123);

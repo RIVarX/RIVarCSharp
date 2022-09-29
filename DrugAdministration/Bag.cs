@@ -1,13 +1,13 @@
 ﻿using System.Reactive.Subjects;
-using RIvarX;
+using RIVarX;
 
 namespace DrugAdministration
 {
     public class Bag: IBag
     {
-        public RIvar<decimal> Amount { get; set; } = new RIvar<decimal>();
-        public RIvar<decimal> Volume { get; set; } = new RIvar<decimal>();
-        public RIvar<decimal> Concentration { get; set; } = new RIvar<decimal>();
+        public RIVar<decimal> Amount { get; set; } = new RIVar<decimal>();
+        public RIVar<decimal> Volume { get; set; } = new RIVar<decimal>();
+        public RIVar<decimal> Concentration { get; set; } = new RIVar<decimal>();
 
         public Bag()
         {

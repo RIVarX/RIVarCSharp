@@ -2,16 +2,16 @@
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using RIvarX;
+using RIVarX;
 
 namespace DrugAdministration
 {
     
     public class Pump
     {
-        public RIvar<decimal> Rate = new RIvar<decimal>();
-        public RIvar<decimal> Dose = new RIvar<decimal>();
-        public RIvar<decimal> Duration = new RIvar<decimal>();
+        public RIVar<decimal> Rate = new RIVar<decimal>();
+        public RIVar<decimal> Dose = new RIVar<decimal>();
+        public RIVar<decimal> Duration = new RIVar<decimal>();
 
         public Pump(IBag bag)
         {

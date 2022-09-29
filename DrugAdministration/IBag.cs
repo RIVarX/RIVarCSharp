@@ -1,11 +1,11 @@
 ﻿using System.Reactive.Subjects;
-using RIvarX;
+using RIVarX;
 
 namespace DrugAdministration
 {
     public  interface IBag
     {
-        RIvar<decimal> Amount { get; }
-        RIvar<decimal> Volume { get; }
+        RIVar<decimal> Amount { get; }
+        RIVar<decimal> Volume { get; }
     }
 }

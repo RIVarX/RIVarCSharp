@@ -5,9 +5,9 @@ using System.Linq;
 
 
 
-namespace RIvarX
+namespace RIVarX
 {
-    public class RIvar<T> : ISubject<Signal<T>>
+    public class RIVar<T> : ISubject<Signal<T>>
     {
         ISubject<Signal<T>> _subject;
 
@@ -33,7 +33,7 @@ namespace RIvarX
 
     
 
-        public RIvar()
+        public RIVar()
         {
             _subject = new Subject<Signal<T>>();
         }

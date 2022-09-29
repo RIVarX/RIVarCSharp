@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp1
+﻿namespace DrugAdministrationUI
 {
     partial class UserControl_Bag
     {

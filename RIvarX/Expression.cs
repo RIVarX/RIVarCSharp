@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RIvarX
+namespace RIVarX
 {
     public class Expression<T> : IObservable<Signal<T>>
     {
