@@ -7,7 +7,7 @@
     <authors>Rivka Altshuler</authors>
     <owners>Rivka Altshuler</owners>
   
-    <projectUrl>https://github.com/RivkaAltshuler/RIVar</projectUrl>
+    <projectUrl>https://github.com/RivkaAltshuler/RIvar</projectUrl>
   
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Reactive Variables to be used as Instance Variables</description>
