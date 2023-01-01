@@ -14,7 +14,8 @@ namespace RIVarX
         {
             return _stream.Subscribe(observer);
         }
-     
+
+        public static implicit operator Expression<T>(RIVar<T> s) => new Expression<T>(s);
     }
 
 
