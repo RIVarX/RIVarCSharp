@@ -28,22 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.userControl_Bag1 = new DrugAdministrationUI.UserControl_Bag();
             this.SuspendLayout();
-            // 
-            // userControl_Bag1
-            // 
-            this.userControl_Bag1.Location = new System.Drawing.Point(-2, 2);
-            this.userControl_Bag1.Name = "userControl_Bag1";
-            this.userControl_Bag1.Size = new System.Drawing.Size(507, 123);
-            this.userControl_Bag1.TabIndex = 0;
-            // 
-            // InfusionTherapy_UserControls
-            // 
+         
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(514, 312);
-            this.Controls.Add(this.userControl_Bag1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -52,6 +41,5 @@
 
         #endregion
 
-        private UserControl_Bag userControl_Bag1;
     }
 }

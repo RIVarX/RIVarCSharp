@@ -19,98 +19,65 @@ namespace DrugAdministrationUI
         NumericUpDown _lastValueChangedControl;
         string _id = Guid.NewGuid().ToString();
 
-
-        public UserControl_Pump(IBag bag)
+        public UserControl_Pump(Pump pump)
         {
             InitializeComponent();
 
-            var a = this.Controls.OfType<NumericUpDown>().Union(Controls.OfType<NumericUpDown>()).ToList();
-            a.ForEach(o =>
-            {
-                o.ValueChanged += O_ValueChanged1;
-                o.LostFocus += O_LostFocus;
+            this.Controls.OfType<NumericUpDown>().ToList().ForEach(ProduceChangeEvents);
 
-            });
-
-            var doseInputs = GetObservable(numericUpDowndose);
-            var rateInputs = GetObservable(numericUpDownrate);
-            var durationInputs = GetObservable(numericUpDowndure);
-
-            var infusedBag = new Pump(bag);
-
-            doseInputs.Subscribe(x => infusedBag.Dose.OnNext(x));
-            rateInputs.Subscribe(x => infusedBag.Rate.OnNext(x));
-            durationInputs.Subscribe(x => infusedBag.Duration.OnNext(x));
-
-
-            infusedBag.Dose.Subscribe(x => SetValue(numericUpDowndose, x));
-            infusedBag.Rate.Subscribe(x => SetValue(numericUpDownrate, x));
-            infusedBag.Duration.Subscribe(x => SetValue(numericUpDowndure, x));
+            Connect(numericUpDowndose, pump.Dose);
+            Connect(numericUpDownrate, pump.Rate);
+            Connect(numericUpDowndure, pump.Duration);
         }
 
-        private void O_LostFocus(object sender, EventArgs e)
+        private void ProduceChangeEvents(NumericUpDown control)
         {
-            _lastValueChangedControl = (sender as NumericUpDown);
-
-        }
-
-        private void O_ValueChanged1(object sender, EventArgs e)
-        {
-            if (sender == _lastValueChangedControl)
+            control.LostFocus += (sender, e) => _lastValueChangedControl = (sender as NumericUpDown);
+            control.ValueChanged += (sender, e) =>
             {
-                lock (this)
+                if (sender == _lastValueChangedControl)
                 {
-                    var value = (sender as NumericUpDown).Value;
-                    ControlValueChanged?.Invoke(sender, Convert.ToDouble(value));
-                    (sender as NumericUpDown).BackColor = Color.White;
+                    lock (this)
+                    {
+                        var value = (sender as NumericUpDown).Value;
+                        ControlValueChanged?.Invoke(sender, Convert.ToDouble(value));
+                        (sender as NumericUpDown).BackColor = Color.White;
 
-                    System.IO.File.AppendAllText($"log{_id}.txt", $"\r\n{_lastValueChangedControl.Name}:{value}");
-                    System.IO.File.AppendAllText($"sets.txt", $"\r\n{_lastValueChangedControl.Name}:{value}");
+                        System.IO.File.AppendAllText($"log{_id}.txt", $"\r\n{_lastValueChangedControl.Name}:{value}");
+                        System.IO.File.AppendAllText($"sets.txt", $"\r\n{_lastValueChangedControl.Name}:{value}");
+                    }
                 }
-
-            }
+            };
         }
 
-        private static decimal GetValue(Signal<decimal> sig)
+        private void Connect(NumericUpDown numericUpDown, RIVar<decimal> rIVar)
         {
-            if (sig?.Value  == null)
-                return 0;
-
-            return Convert.ToDecimal(sig.Value);
+            GetObservable(numericUpDown).Subscribe(x => rIVar.OnNext(x));
+            rIVar.Subscribe(x => SetValue(numericUpDown, x));
         }
-
-        private void SetValue( NumericUpDown control, Signal<decimal> sig)
+        private void SetValue( NumericUpDown control, Signal<decimal> signal)
         {
             lock (this)
             {
-
-
-                if (sig?.Value== null)
+                if (signal?.Value== null)
                 {
                     if (control.Value != 0)
                     {
                         control.Value = 0;
                     }
-
                 }
-
                 else
-
                 {
-                    var dec = Math.Round(Convert.ToDecimal(sig.Value), 2);
-                    System.IO.File.AppendAllText($"sets.txt", $"\r\n{control.Name}: {dec} <{string.Join(",", sig.PrioritySet)}>");
+                    var dec = Math.Round(Convert.ToDecimal(signal.Value), 2);
+                    System.IO.File.AppendAllText($"sets.txt", $"\r\n{control.Name}: {dec} <{string.Join(",", signal.PrioritySet)}>");
                     if (control.Value != dec)
                     {
                         control.Value = dec;
-                        //control.Tag = sig.PrioritySet;
                         control.BackColor = Color.Yellow;
-
                     }
                 }
             }
-
         }
-
         IObservable<Signal<decimal>> GetObservable( NumericUpDown control)
         {
             return Observable.FromEventPattern<double>(this, "ControlValueChanged").Where(o => o.Sender == control).Select(o => (o.Sender as NumericUpDown).Value.ToString())//.Scan((x,y)=>y)//.Select(o=> Convert.ToDouble(o))

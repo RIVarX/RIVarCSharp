@@ -24,7 +24,15 @@ namespace DrugAdministrationUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form());
+
+
+            var bag = new Bag();
+            var pump = new Pump(bag);
+
+            var bagUserControl = new UserControl_Bag(bag);
+            var pumpUserControl = new UserControl_Pump(pump);
+         
+            Application.Run(new Form(bagUserControl, pumpUserControl));
         }
     }
 
