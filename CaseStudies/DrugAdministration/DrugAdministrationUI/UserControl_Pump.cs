@@ -15,9 +15,8 @@ namespace DrugAdministrationUI
 {
     public partial class UserControl_Pump : UserControl
     {
-        public event EventHandler<double> ControlValueChanged;
+        public event EventHandler<decimal> ControlValueChanged;
         NumericUpDown _lastValueChangedControl;
-        string _id = Guid.NewGuid().ToString();
 
         public UserControl_Pump(Pump pump)
         {
@@ -25,9 +24,9 @@ namespace DrugAdministrationUI
 
             this.Controls.OfType<NumericUpDown>().ToList().ForEach(ProduceChangeEvents);
 
-            Connect(numericUpDowndose, pump.Dose);
-            Connect(numericUpDownrate, pump.Rate);
-            Connect(numericUpDowndure, pump.Duration);
+            Connect(Dose_Control, pump.Dose);
+            Connect(Rate_Control, pump.Rate);
+            Connect(Duration_Control, pump.Duration);
         }
 
         private void ProduceChangeEvents(NumericUpDown control)
@@ -40,26 +39,23 @@ namespace DrugAdministrationUI
                     lock (this)
                     {
                         var value = (sender as NumericUpDown).Value;
-                        ControlValueChanged?.Invoke(sender, Convert.ToDouble(value));
+                        Log($"\r\n{_lastValueChangedControl.Name}:{value}");
+                        ControlValueChanged?.Invoke(sender, value);
                         (sender as NumericUpDown).BackColor = Color.White;
-
-                        System.IO.File.AppendAllText($"log{_id}.txt", $"\r\n{_lastValueChangedControl.Name}:{value}");
-                        System.IO.File.AppendAllText($"sets.txt", $"\r\n{_lastValueChangedControl.Name}:{value}");
                     }
                 }
             };
         }
-
         private void Connect(NumericUpDown numericUpDown, RIVar<decimal> rIVar)
         {
             GetObservable(numericUpDown).Subscribe(x => rIVar.OnNext(x));
             rIVar.Subscribe(x => SetValue(numericUpDown, x));
         }
-        private void SetValue( NumericUpDown control, Signal<decimal> signal)
+        private void SetValue(NumericUpDown control, Signal<decimal> signal)
         {
             lock (this)
             {
-                if (signal?.Value== null)
+                if (signal?.Value == null)
                 {
                     if (control.Value != 0)
                     {
@@ -68,21 +64,25 @@ namespace DrugAdministrationUI
                 }
                 else
                 {
-                    var dec = Math.Round(Convert.ToDecimal(signal.Value), 2);
-                    System.IO.File.AppendAllText($"sets.txt", $"\r\n{control.Name}: {dec} <{string.Join(",", signal.PrioritySet)}>");
-                    if (control.Value != dec)
+                    var value = Math.Round(Convert.ToDecimal(signal.Value), 2);
+                    Log($"\r\n{control.Name}: {value} <{string.Join(",", signal.PrioritySet)}>");
+                    if (control.Value != value)
                     {
-                        control.Value = dec;
+                        control.Value = value;
                         control.BackColor = Color.Yellow;
                     }
                 }
             }
         }
-        IObservable<Signal<decimal>> GetObservable( NumericUpDown control)
+        IObservable<Signal<decimal>> GetObservable(NumericUpDown control)
         {
-            return Observable.FromEventPattern<double>(this, "ControlValueChanged").Where(o => o.Sender == control).Select(o => (o.Sender as NumericUpDown).Value.ToString())//.Scan((x,y)=>y)//.Select(o=> Convert.ToDouble(o))
+            return Observable.FromEventPattern<decimal>(this, "ControlValueChanged").Where(o => o.Sender == control).Select(o => (o.Sender as NumericUpDown).Value.ToString())//.Scan((x,y)=>y)//.Select(o=> Convert.ToDouble(o))
                 .Select(o => Convert.ToDecimal(o)).Select(o => new Signal<decimal>(o)).DistinctUntilChanged()
                 .Select(o => o).Publish().RefCount().Select(o => o);
+        }
+        void Log(string text)
+        {
+            System.IO.File.AppendAllText($"log.txt", text);
         }
     }
 }

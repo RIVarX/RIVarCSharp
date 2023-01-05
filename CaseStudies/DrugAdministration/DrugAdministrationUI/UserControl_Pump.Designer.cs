@@ -31,12 +31,12 @@
             this.labelDuration = new System.Windows.Forms.Label();
             this.labelRate = new System.Windows.Forms.Label();
             this.labelDose = new System.Windows.Forms.Label();
-            this.numericUpDowndure = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownrate = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDowndose = new System.Windows.Forms.NumericUpDown();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDowndure)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownrate)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDowndose)).BeginInit();
+            this.Duration_Control = new System.Windows.Forms.NumericUpDown();
+            this.Rate_Control = new System.Windows.Forms.NumericUpDown();
+            this.Dose_Control = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.Duration_Control)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Rate_Control)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Dose_Control)).BeginInit();
             this.SuspendLayout();
             // 
             // labelDuration
@@ -66,44 +66,44 @@
             this.labelDose.TabIndex = 15;
             this.labelDose.Text = "Dose";
             // 
-            // numericUpDowndure
+            // Duration_Control
             // 
-            this.numericUpDowndure.DecimalPlaces = 2;
-            this.numericUpDowndure.Location = new System.Drawing.Point(192, 54);
-            this.numericUpDowndure.Maximum = new decimal(new int[] {
+            this.Duration_Control.DecimalPlaces = 2;
+            this.Duration_Control.Location = new System.Drawing.Point(192, 54);
+            this.Duration_Control.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.numericUpDowndure.Name = "numericUpDowndure";
-            this.numericUpDowndure.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDowndure.TabIndex = 14;
+            this.Duration_Control.Name = "Duration_Control";
+            this.Duration_Control.Size = new System.Drawing.Size(120, 20);
+            this.Duration_Control.TabIndex = 14;
             // 
-            // numericUpDownrate
+            // Rate_Control
             // 
-            this.numericUpDownrate.DecimalPlaces = 2;
-            this.numericUpDownrate.Location = new System.Drawing.Point(341, 54);
-            this.numericUpDownrate.Maximum = new decimal(new int[] {
+            this.Rate_Control.DecimalPlaces = 2;
+            this.Rate_Control.Location = new System.Drawing.Point(341, 54);
+            this.Rate_Control.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.numericUpDownrate.Name = "numericUpDownrate";
-            this.numericUpDownrate.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDownrate.TabIndex = 13;
+            this.Rate_Control.Name = "Rate_Control";
+            this.Rate_Control.Size = new System.Drawing.Size(120, 20);
+            this.Rate_Control.TabIndex = 13;
             // 
-            // numericUpDowndose
+            // Dose_Control
             // 
-            this.numericUpDowndose.DecimalPlaces = 2;
-            this.numericUpDowndose.Location = new System.Drawing.Point(23, 54);
-            this.numericUpDowndose.Maximum = new decimal(new int[] {
+            this.Dose_Control.DecimalPlaces = 2;
+            this.Dose_Control.Location = new System.Drawing.Point(23, 54);
+            this.Dose_Control.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.numericUpDowndose.Name = "numericUpDowndose";
-            this.numericUpDowndose.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDowndose.TabIndex = 12;
+            this.Dose_Control.Name = "Dose_Control";
+            this.Dose_Control.Size = new System.Drawing.Size(120, 20);
+            this.Dose_Control.TabIndex = 12;
             // 
             // UserControl_Pump
             // 
@@ -112,14 +112,14 @@
             this.Controls.Add(this.labelDuration);
             this.Controls.Add(this.labelRate);
             this.Controls.Add(this.labelDose);
-            this.Controls.Add(this.numericUpDowndure);
-            this.Controls.Add(this.numericUpDownrate);
-            this.Controls.Add(this.numericUpDowndose);
+            this.Controls.Add(this.Duration_Control);
+            this.Controls.Add(this.Rate_Control);
+            this.Controls.Add(this.Dose_Control);
             this.Name = "UserControl_Pump";
             this.Size = new System.Drawing.Size(493, 102);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDowndure)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownrate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDowndose)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Duration_Control)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Rate_Control)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Dose_Control)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -130,8 +130,8 @@
         public System.Windows.Forms.Label labelDuration;
         public System.Windows.Forms.Label labelRate;
         public System.Windows.Forms.Label labelDose;
-        internal System.Windows.Forms.NumericUpDown numericUpDowndure;
-        internal System.Windows.Forms.NumericUpDown numericUpDownrate;
-        internal System.Windows.Forms.NumericUpDown numericUpDowndose;
+        internal System.Windows.Forms.NumericUpDown Duration_Control;
+        internal System.Windows.Forms.NumericUpDown Rate_Control;
+        internal System.Windows.Forms.NumericUpDown Dose_Control;
     }
 }

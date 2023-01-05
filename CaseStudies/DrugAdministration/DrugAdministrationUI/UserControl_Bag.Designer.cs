@@ -31,12 +31,12 @@
             this.labelConce = new System.Windows.Forms.Label();
             this.labelVolume = new System.Windows.Forms.Label();
             this.labelMed = new System.Windows.Forms.Label();
-            this.numericUpDownconc = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownvolume = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownMedication = new System.Windows.Forms.NumericUpDown();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownconc)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownvolume)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMedication)).BeginInit();
+            this.Concentration_Control = new System.Windows.Forms.NumericUpDown();
+            this.Volume_Control = new System.Windows.Forms.NumericUpDown();
+            this.Drug_Control = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.Concentration_Control)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Volume_Control)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Drug_Control)).BeginInit();
             this.SuspendLayout();
             // 
             // labelConce
@@ -51,59 +51,59 @@
             // labelVolume
             // 
             this.labelVolume.AutoSize = true;
-            this.labelVolume.Location = new System.Drawing.Point(365, 37);
+            this.labelVolume.Location = new System.Drawing.Point(359, 37);
             this.labelVolume.Name = "labelVolume";
-            this.labelVolume.Size = new System.Drawing.Size(42, 13);
+            this.labelVolume.Size = new System.Drawing.Size(75, 13);
             this.labelVolume.TabIndex = 10;
-            this.labelVolume.Text = "Volume";
+            this.labelVolume.Text = "VolumeOfFluid";
             // 
             // labelMed
             // 
             this.labelMed.AutoSize = true;
             this.labelMed.Location = new System.Drawing.Point(51, 37);
             this.labelMed.Name = "labelMed";
-            this.labelMed.Size = new System.Drawing.Size(59, 13);
+            this.labelMed.Size = new System.Drawing.Size(30, 13);
             this.labelMed.TabIndex = 9;
-            this.labelMed.Text = "Medication";
+            this.labelMed.Text = "Drug";
             // 
-            // numericUpDownconc
+            // Concentration_Control
             // 
-            this.numericUpDownconc.DecimalPlaces = 2;
-            this.numericUpDownconc.Location = new System.Drawing.Point(186, 71);
-            this.numericUpDownconc.Maximum = new decimal(new int[] {
+            this.Concentration_Control.DecimalPlaces = 2;
+            this.Concentration_Control.Location = new System.Drawing.Point(186, 71);
+            this.Concentration_Control.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.numericUpDownconc.Name = "numericUpDownconc";
-            this.numericUpDownconc.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDownconc.TabIndex = 8;
+            this.Concentration_Control.Name = "Concentration_Control";
+            this.Concentration_Control.Size = new System.Drawing.Size(120, 20);
+            this.Concentration_Control.TabIndex = 8;
             // 
-            // numericUpDownvolume
+            // Volume_Control
             // 
-            this.numericUpDownvolume.DecimalPlaces = 2;
-            this.numericUpDownvolume.Location = new System.Drawing.Point(335, 71);
-            this.numericUpDownvolume.Maximum = new decimal(new int[] {
+            this.Volume_Control.DecimalPlaces = 2;
+            this.Volume_Control.Location = new System.Drawing.Point(335, 71);
+            this.Volume_Control.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.numericUpDownvolume.Name = "numericUpDownvolume";
-            this.numericUpDownvolume.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDownvolume.TabIndex = 7;
+            this.Volume_Control.Name = "Volume_Control";
+            this.Volume_Control.Size = new System.Drawing.Size(120, 20);
+            this.Volume_Control.TabIndex = 7;
             // 
-            // numericUpDownMedication
+            // Drug_Control
             // 
-            this.numericUpDownMedication.DecimalPlaces = 2;
-            this.numericUpDownMedication.Location = new System.Drawing.Point(16, 71);
-            this.numericUpDownMedication.Maximum = new decimal(new int[] {
+            this.Drug_Control.DecimalPlaces = 2;
+            this.Drug_Control.Location = new System.Drawing.Point(16, 71);
+            this.Drug_Control.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.numericUpDownMedication.Name = "numericUpDownMedication";
-            this.numericUpDownMedication.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDownMedication.TabIndex = 6;
+            this.Drug_Control.Name = "Drug_Control";
+            this.Drug_Control.Size = new System.Drawing.Size(120, 20);
+            this.Drug_Control.TabIndex = 6;
             // 
             // UserControl_Bag
             // 
@@ -112,14 +112,14 @@
             this.Controls.Add(this.labelConce);
             this.Controls.Add(this.labelVolume);
             this.Controls.Add(this.labelMed);
-            this.Controls.Add(this.numericUpDownconc);
-            this.Controls.Add(this.numericUpDownvolume);
-            this.Controls.Add(this.numericUpDownMedication);
+            this.Controls.Add(this.Concentration_Control);
+            this.Controls.Add(this.Volume_Control);
+            this.Controls.Add(this.Drug_Control);
             this.Name = "UserControl_Bag";
             this.Size = new System.Drawing.Size(507, 123);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownconc)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownvolume)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMedication)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Concentration_Control)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Volume_Control)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Drug_Control)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -130,8 +130,8 @@
         public System.Windows.Forms.Label labelConce;
         public System.Windows.Forms.Label labelVolume;
         public System.Windows.Forms.Label labelMed;
-        internal System.Windows.Forms.NumericUpDown numericUpDownconc;
-        internal System.Windows.Forms.NumericUpDown numericUpDownvolume;
-        internal System.Windows.Forms.NumericUpDown numericUpDownMedication;
+        internal System.Windows.Forms.NumericUpDown Concentration_Control;
+        internal System.Windows.Forms.NumericUpDown Volume_Control;
+        internal System.Windows.Forms.NumericUpDown Drug_Control;
     }
 }
