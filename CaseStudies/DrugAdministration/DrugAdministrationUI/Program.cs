@@ -31,7 +31,9 @@ namespace DrugAdministrationUI
 
             var bagUserControl = new UserControl_Bag(bag);
             var pumpUserControl = new UserControl_Pump(pump);
-         
+
+            System.IO.File.AppendAllText($"log.txt", "new session " + DateTime.Now.ToString());
+
             Application.Run(new Form(bagUserControl, pumpUserControl));
         }
     }
