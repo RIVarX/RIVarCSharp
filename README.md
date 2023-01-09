@@ -57,7 +57,7 @@
 
 - Set _Medication_ (named _Amount_), then _Volume_ then _Duration_.
 
-![image](https://user-images.githubusercontent.com/32875275/191584414-3997bda3-35e1-43b7-90e0-ab4ef6a74768.png)
+![image](https://user-images.githubusercontent.com/32875275/211289723-70d58b8a-2fde-407d-9887-bc72ab25251b.png)
 
 - Set _Dose_
 
