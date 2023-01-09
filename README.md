@@ -61,7 +61,7 @@
 
 - Set _Dose_
 
-![image](https://user-images.githubusercontent.com/32875275/191584478-09a2f250-3fd2-4564-a503-b0d61d624b79.png)
+![image](https://user-images.githubusercontent.com/32875275/211289858-1fd9d4d2-9a7b-4166-bbc1-92d35f6a64e2.png)
 
 ## Learn, Usage or Contribution
 
